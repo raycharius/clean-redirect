@@ -6,14 +6,14 @@ module.exports = (options) => (req, res, next) => {
   const requestData = {
     method: req.method,
     protocol: req.protocol,
-    hostname: req.hostname,
+    hostname: req.get('host'),
     originalUrl: req.originalUrl,
   };
 
   const cleanRedirect = new CleanRedirect(requestData, config);
 
   if (cleanRedirect.requiresRedirect) {
-    res.redirect(cleanRedirect.redirectType, cleanRedirect.redirectUrl);
+    res.redirect(cleanRedirect.redirectType, cleanRedirect.getRedirectUrl());
   }
 
   if (!cleanRedirect.requiresRedirect || callNextOnRedirect) {
