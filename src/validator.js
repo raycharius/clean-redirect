@@ -1,10 +1,10 @@
-const CleanRedirectError = require('./clean-redirect-error')
+const CleanRedirectError = require('./clean-redirect-error');
 
-const validateConfig = ({ redirectType, toWww, toNaked, customRedirects }) => {
+const validateConfig = ({ redirectType, toWww, toNaked }) => {
   validateRedirectCode(redirectType);
 
   if (toWww && toNaked) {
-    throw new CleanRedirectError(`Both 'toWww' and 'toNaked' cannot be simultaneously set to true.`);
+    throw new CleanRedirectError('Both \'toWww\' and \'toNaked\' cannot be simultaneously set to true.');
   }
 };
 
@@ -12,7 +12,7 @@ const validateRedirectCode = (code) => {
   const validRedirectCodes = [301, 302];
 
   if (!validRedirectCodes.includes(code)) {
-    throw new CleanRedirectError(`Option 'redirectType' must have an integer value of either 301 or 302.`);
+    throw new CleanRedirectError('Option \'redirectType\' must have an integer value of either 301 or 302.');
   }
 };
 
@@ -44,7 +44,7 @@ const validateIsBoolean = (bool) => {
 
 const validateCustomRedirects = (customRedirects) => {
   if (customRedirects && typeof customRedirects !== 'function') {
-    throw new CleanRedirectError(`When set, the option 'customRedirects' must either a function.`);
+    throw new CleanRedirectError('When set, the option \'customRedirects\' must either a function.');
   }
 };
 

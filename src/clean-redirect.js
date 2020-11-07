@@ -1,6 +1,11 @@
 const helper = require('./helper');
 const validator = require('./validator');
-const { www, slash, blankString, https } = require('./constants');
+const {
+  www,
+  slash,
+  blankString,
+  https,
+} = require('./constants');
 
 class CleanRedirect {
   constructor(requestData, config) {
@@ -105,10 +110,12 @@ class CleanRedirect {
       return this.pathOverride;
     }
 
-    return `${this.getProtocolAndHostnameUrlString()}${this.mutatedRequestData.path}${this.getQueryStringUrlString()}`
+    return `${this.getProtocolAndHostnameUrlString()}${this.mutatedRequestData.path}${this.getQueryStringUrlString()}`;
   }
 
-  concatFullUrl({ protocol, hostname, path, queryString }) {
+  concatFullUrl({
+    protocol, hostname, path, queryString,
+  }) {
     return `${protocol}://${hostname}${path}${queryString.length > 0 ? `?${queryString}` : queryString}`;
   }
 
