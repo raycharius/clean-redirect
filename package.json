@@ -1,0 +1,52 @@
+{
+  "name": "express-clean-redirect",
+  "version": "0.0.0",
+  "description": "All your redirect logic wrapped into one single redirect in Express. Including, enforce HTTPS, www to naked domain and vice versa, remove trailing slash, to lower case, and your own custom redirect logic.",
+  "author": {
+    "name": "Ray East",
+    "url": "https://github.com/raycharius"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/raycharius/express-clean-redirect"
+  },
+  "homepage": "https://github.com/raycharius/express-clean-redirect",
+  "bugs": {
+    "url": "https://github.com/raycharius/express-clean-redirect/issues"
+  },
+  "files": [
+    "src/",
+    "README.md"
+  ],
+  "main": "src/index.js",
+  "license": "MIT",
+  "keywords": [
+    "redirect",
+    "seo",
+    "301",
+    "302",
+    "http",
+    "https",
+    "url",
+    "redirects",
+    "enforce",
+    "trailing",
+    "slash",
+    "naked",
+    "domain",
+    "www",
+    "subdomain"
+  ],
+  "scripts": {
+    "test": "jest",
+    "lint-fix": "eslint '**.js' --fix",
+    "lint-check": "eslint '**.js'"
+  },
+  "devDependencies": {
+    "eslint": "^6.8.0",
+    "eslint-config-airbnb-base": "^14.1.0",
+    "eslint-plugin-import": "^2.20.2",
+    "prettier-eslint-cli": "^5.0.0",
+    "jest": "^26.0.1"
+  }
+}
