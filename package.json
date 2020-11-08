@@ -1,5 +1,5 @@
 {
-  "name": "express-clean-redirect",
+  "name": "clean-redirect",
   "version": "0.0.0",
   "description": "All your redirect logic wrapped into one single redirect in Express. Including, enforce HTTPS, www to naked domain and vice versa, remove trailing slash, to lower case, and your own custom redirect logic.",
   "author": {
