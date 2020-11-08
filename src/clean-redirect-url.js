@@ -1,3 +1,5 @@
+const validator = require('./validator');
+
 class CleanRedirectUrl {
   constructor({ protocol, hostname, uri }) {
     this.protocol = protocol;
@@ -82,6 +84,8 @@ class CleanRedirectUrl {
    */
 
   setProperty(property, value) {
+    validator.validateIsString(value);
+
     this[property] = value;
 
     this.url = this.concatUrl();

@@ -130,42 +130,56 @@ class CleanRedirect {
   }
 
   setProtocol(protocol) {
-    return this.callTargetUrlMethod('setProtocol', protocol);
+    this.targetUrl.setProtocol(protocol);
+
+    return this;
   }
 
   setHostname(hostname) {
-    return this.callTargetUrlMethod('setHostname', hostname);
+    this.targetUrl.setHostname(hostname);
+
+    return this;
   }
 
   setPath(path) {
-    return this.callTargetUrlMethod('setPath', path);
+    this.targetUrl.setPath(path);
+
+    return this;
   }
 
   setQueryString(queryString) {
-    return this.callTargetUrlMethod('setQueryString', queryString);
+    this.targetUrl.setQueryString(queryString);
+
+    return this;
   }
 
   setHash(hash) {
-    return this.callTargetUrlMethod('setHash', hash);
+    this.targetUrl.setHash(hash);
+
+    return this;
   }
 
   setPersistQueryString(bool) {
     validator.validateIsBoolean(bool);
+
     return this.setConfigProperty('persistQuery', bool);
   }
 
   setPersistHash(bool) {
     validator.validateIsBoolean(bool);
+
     return this.setConfigProperty('persistHash', bool);
   }
 
   setRedirectType(code) {
     validator.validateRedirectCode(code);
+
     return this.setConfigProperty('redirectType', code);
   }
 
   setPathOverride(path) {
     validator.validateIsString(path);
+
     return this.setConfigProperty('pathOverride', path);
   }
 
@@ -175,17 +189,6 @@ class CleanRedirect {
 
   setConfigProperty(property, value) {
     this.config[property] = value;
-
-    return this;
-  }
-
-  /**
-   * @private
-   */
-
-  callTargetUrlMethod(method, value) {
-    validator.validateIsString(value);
-    this.targetUrl[method](value);
 
     return this;
   }
