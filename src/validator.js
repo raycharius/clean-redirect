@@ -1,18 +1,18 @@
 const CleanRedirectError = require('./clean-redirect-error');
 
-const validateConfig = ({ redirectType, toWww, toNaked }) => {
-  validateRedirectCode(redirectType);
-
-  if (toWww && toNaked) {
-    throw new CleanRedirectError('Both \'toWww\' and \'toNaked\' cannot be simultaneously set to true.');
-  }
-};
-
 const validateRedirectCode = (code) => {
   const validRedirectCodes = [301, 302];
 
   if (!validRedirectCodes.includes(code)) {
     throw new CleanRedirectError('Option \'redirectType\' must have an integer value of either 301 or 302.');
+  }
+};
+
+const validateConfig = ({ redirectType, toWww, toNaked }) => {
+  validateRedirectCode(redirectType);
+
+  if (toWww && toNaked) {
+    throw new CleanRedirectError('Both \'toWww\' and \'toNaked\' cannot be simultaneously set to true.');
   }
 };
 
