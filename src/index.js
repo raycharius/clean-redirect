@@ -1,8 +1,7 @@
 const CleanRedirect = require('./clean-redirect');
 
 module.exports = (options) => (req, res, next) => {
-  const { callNextOnRedirect, ...config } = options;
-
+  const { callNextOnRedirect = false, deferRedirectToNext = false, ...config } = options;
   const requestData = {
     method: req.method,
     protocol: req.protocol,
@@ -12,11 +11,16 @@ module.exports = (options) => (req, res, next) => {
 
   const cleanRedirect = new CleanRedirect(requestData, config);
 
+  if (deferRedirectToNext) {
+    res.locals.cleanRedirect = cleanRedirect;
+    return next();
+  }
+
   if (cleanRedirect.requiresRedirect) {
     res.redirect(cleanRedirect.redirectType, cleanRedirect.getRedirectUrl());
   }
 
   if (!cleanRedirect.requiresRedirect || callNextOnRedirect) {
-    next();
+    return next();
   }
 };
