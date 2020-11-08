@@ -4,6 +4,11 @@ const {
   www,
   slash,
   https,
+  slashString,
+  persistQuery,
+  persistHash,
+  redirectType,
+  pathOverride,
 } = require('./constants');
 
 class CleanRedirect {
@@ -103,7 +108,7 @@ class CleanRedirect {
     });
 
     if (protocolDiffers || this.config.alwaysPassFullUrl) {
-      return `${this.targetUrl.protocol}://${this.targetUrl.hostname}${fullPath}`;
+      return `${this.targetUrl.protocol}${slashString}${this.targetUrl.hostname}${fullPath}`;
     }
 
     return hostnameDiffers ? `${this.targetUrl.hostname}${fullPath}` : fullPath;
@@ -162,25 +167,25 @@ class CleanRedirect {
   setPersistQueryString(bool) {
     validator.validateIsBoolean(bool);
 
-    return this.setConfigProperty('persistQuery', bool);
+    return this.setConfigProperty(persistQuery, bool);
   }
 
   setPersistHash(bool) {
     validator.validateIsBoolean(bool);
 
-    return this.setConfigProperty('persistHash', bool);
+    return this.setConfigProperty(persistHash, bool);
   }
 
   setRedirectType(code) {
     validator.validateRedirectCode(code);
 
-    return this.setConfigProperty('redirectType', code);
+    return this.setConfigProperty(redirectType, code);
   }
 
   setPathOverride(path) {
     validator.validateIsString(path);
 
-    return this.setConfigProperty('pathOverride', path);
+    return this.setConfigProperty(pathOverride, path);
   }
 
   /**

@@ -1,4 +1,15 @@
 const validator = require('./validator');
+const {
+  questionMark,
+  hashSymbol,
+  blankString,
+  slashString,
+  protocolProp,
+  hostnameProp,
+  pathProp,
+  queryStringProp,
+  hashProp,
+} = require('./constants');
 
 class CleanRedirectUrl {
   constructor({ protocol, hostname, uri }) {
@@ -12,12 +23,12 @@ class CleanRedirectUrl {
   }
 
   parsePath() {
-    return this.uri.split('?').shift();
+    return this.uri.split(questionMark).shift();
   }
 
   parseQueryString() {
-    const startQueryStringIndex = this.uri.indexOf('?');
-    const startHashIndex = this.uri.indexOf('#');
+    const startQueryStringIndex = this.uri.indexOf(questionMark);
+    const startHashIndex = this.uri.indexOf(hashSymbol);
     const hasQueryString = startQueryStringIndex >= 0;
     const hasSlash = startHashIndex >= 0;
 
@@ -25,7 +36,7 @@ class CleanRedirectUrl {
       return this.uri.slice(startQueryStringIndex + 1, startHashIndex);
     }
 
-    return hasSlash ? this.uri.slice(startQueryStringIndex + 1) : '';
+    return hasSlash ? this.uri.slice(startQueryStringIndex + 1) : blankString;
   }
 
   /**
@@ -33,10 +44,10 @@ class CleanRedirectUrl {
    */
 
   parseHash() {
-    const startHashIndex = this.uri.indexOf('#');
+    const startHashIndex = this.uri.indexOf(hashSymbol);
     const hasSlash = startHashIndex >= 0;
 
-    return hasSlash ? this.uri.slice(startHashIndex + 1) : '';
+    return hasSlash ? this.uri.slice(startHashIndex + 1) : blankString;
   }
 
   /**
@@ -44,7 +55,7 @@ class CleanRedirectUrl {
    */
 
   concatUri() {
-    return `${this.path}${this.queryString.length > 0 ? `?${this.queryString}` : ''}${this.hash.length > 0 ? `#${this.hash}` : ''}`;
+    return `${this.path}${this.queryString.length > 0 ? `${questionMark}${this.queryString}` : blankString}${this.hash.length > 0 ? `${hashSymbol}${this.hash}` : blankString}`;
   }
 
   /**
@@ -52,31 +63,31 @@ class CleanRedirectUrl {
    */
 
   concatUrl() {
-    return `${this.protocol}://${this.hostname}${this.path}${this.queryString.length > 0 ? `?${this.queryString}` : ''}${this.hash.length > 0 ? `#${this.hash}` : ''}`;
+    return `${this.protocol}${slashString}${this.hostname}${this.path}${this.queryString.length > 0 ? `${questionMark}${this.queryString}` : blankString}${this.hash.length > 0 ? `${hashSymbol}${this.hash}` : blankString}`;
   }
 
   getFullPath({ includeQueryString = true, includeHash = true }) {
-    return `${this.path}${this.queryString.length > 0 && includeQueryString ? `?${this.queryString}` : ''}${this.hash.length > 0 && includeHash ? `#${this.hash}` : ''}`;
+    return `${this.path}${this.queryString.length > 0 && includeQueryString ? `${questionMark}${this.queryString}` : blankString}${this.hash.length > 0 && includeHash ? `${hashSymbol}${this.hash}` : blankString}`;
   }
 
   setProtocol(protocol) {
-    return this.setProperty('protocol', protocol);
+    return this.setProperty(protocolProp, protocol);
   }
 
   setHostname(hostname) {
-    return this.setProperty('hostname', hostname);
+    return this.setProperty(hostnameProp, hostname);
   }
 
   setPath(path) {
-    return this.setProperty('path', path);
+    return this.setProperty(pathProp, path);
   }
 
   setQueryString(queryString) {
-    return this.setProperty('queryString', queryString);
+    return this.setProperty(queryStringProp, queryString);
   }
 
   setHash(hash) {
-    return this.setProperty('hash', hash);
+    return this.setProperty(hashProp, hash);
   }
 
   /**
