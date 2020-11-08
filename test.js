@@ -1,21 +1,22 @@
 const CleanRedirect = require('./src/clean-redirect');
 
 const requestData = {
-  method: '',
-  protocol: '',
-  hostname: '',
-  originalUrl: ''
+  method: 'GET',
+  protocol: 'http',
+  hostname: 'macpaw.com',
+  uri: '/cleanmyMAC/?hello=world&goodbye=blue-sky#fuckery',
 };
 
 const config = {
   forceHttps: true,
-  toWww: false,
+  toWww: true,
   toNaked: false,
   toLowerCase: true,
   removeTrailingSlash: true,
   persistQueryString: true,
+  persistHash: true,
   redirectType: 301,
-  customRedirects: (cleanRedirect) => cleanRedirect,
+  customRedirects: (cleanRedirect) => cleanRedirect.setPersistHash(false),
 };
 
 const cleanRedirect = new CleanRedirect(requestData, config);
