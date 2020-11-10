@@ -4,7 +4,6 @@ const { host } = require('./constants');
 module.exports = (options) => (req, res, next) => {
   const {
     callNextOnRedirect = false,
-    deferRedirectToNext = false,
     customRedirects = null,
     ...config
   } = options;
@@ -18,12 +17,6 @@ module.exports = (options) => (req, res, next) => {
 
   if (customRedirects) {
     customRedirects(req, res, cleanRedirect);
-  }
-
-  if (deferRedirectToNext) {
-    res.locals.cleanRedirect = cleanRedirect;
-
-    return next();
   }
 
   if (cleanRedirect.requiresRedirect) {
