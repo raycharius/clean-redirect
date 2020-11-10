@@ -4,28 +4,22 @@ const {
   www,
   slash,
   https,
-  slashString,
-  persistQuery,
-  persistHash,
-  redirectType,
-  pathOverride,
+  props,
 } = require('./constants');
 
 class CleanRedirect {
-  constructor({ method, ...urlData }, config) {
+  constructor(urlData, config) {
     this.config = {
       forceHttps: config.forceHttps || false,
       toWww: config.toWww || false,
       toNaked: config.toNaked || false,
-      toLowerCase: config.toLowerCase || false,
+      pathToLowerCase: config.pathToLowerCase || false,
       removeTrailingSlash: config.removeTrailingSlash || false,
       persistQueryString: config.persistQueryString || false,
       persistHash: config.persistHash || false,
       alwaysPassFullUrl: config.alwaysPassFullUrl || false,
       redirectType: config.redirectType || null,
     };
-
-    this.method = method;
 
     this.sourceUrl = new CleanRedirectUrl(urlData);
 
@@ -37,10 +31,6 @@ class CleanRedirect {
     this.customRedirects = config.customRedirects || null;
 
     this.pathOverride = null;
-
-    if (this.customRedirects) {
-      this.customRedirects(this);
-    }
   }
 
   /**
@@ -56,18 +46,14 @@ class CleanRedirect {
    */
 
   getTargetHostname() {
-    if (this.config.toWww) {
-      return this.sourceUrl.hostname.startsWith(www)
-        ? this.sourceUrl.hostname
-        : `${www}${this.sourceUrl.hostname}`;
+    const hasWww = this.sourceUrl.hostname.startsWith(www);
+
+    if (this.config.toWww && !hasWww) {
+      return `${www}${this.sourceUrl.hostname}`;
     }
 
-    if (this.config.toNaked) {
-      const startWwwIndex = this.sourceUrl.hostname.indexOf(www);
-
-      return (startWwwIndex >= 0)
-        ? this.sourceUrl.hostname.slice(4)
-        : this.sourceUrl.hostname;
+    if (this.config.toNaked && hasWww) {
+      return this.sourceUrl.hostname.slice(4);
     }
 
     return this.sourceUrl.hostname;
@@ -78,17 +64,21 @@ class CleanRedirect {
    */
 
   getTargetPath() {
-    const mutatedPath = this.config.toLowerCase
-      ? this.sourceUrl.path.toLowerCase()
-      : this.sourceUrl.path;
-    const pathLength = mutatedPath.length;
-    const hasTrailingSlash = mutatedPath.charAt(pathLength - 1) === slash;
+    let targetPath = this.sourceUrl.path;
 
-    if (this.config.removeTrailingSlash && hasTrailingSlash && mutatedPath !== slash) {
-      return mutatedPath.slice(0, mutatedPath.length - 1);
+    const pathLength = targetPath.length;
+    const isSlash = targetPath === slash;
+    const hasTrailingSlash = targetPath.charAt(pathLength - 1) === slash;
+
+    if (this.config.pathToLowerCase && !isSlash) {
+      targetPath = targetPath.toLowerCase();
     }
 
-    return mutatedPath;
+    if (this.config.removeTrailingSlash && hasTrailingSlash && !isSlash) {
+      targetPath = targetPath.slice(0, pathLength - 1);
+    }
+
+    return targetPath;
   }
 
   requiresRedirect() {
@@ -100,18 +90,19 @@ class CleanRedirect {
       return this.pathOverride;
     }
 
-    const protocolDiffers = this.sourceUrl.protocol !== this.targetUrl.protocol;
-    const hostnameDiffers = this.sourceUrl.hostname !== this.targetUrl.hostname;
-    const fullPath = this.targetUrl.getFullPath({
+    if (this.config.alwaysPassFullUrl) {
+      return this.targetUrl.getFullPath({
+        includeQueryString: this.config.persistQueryString,
+        includeHash: this.config.persistHash,
+      });
+    }
+
+    return this.targetUrl.getFullPath({
+      includeProtocol: this.sourceUrl.protocol !== this.targetUrl.protocol,
+      includeHostname: this.sourceUrl.hostname !== this.targetUrl.hostname,
       includeQueryString: this.config.persistQueryString,
       includeHash: this.config.persistHash,
     });
-
-    if (protocolDiffers || this.config.alwaysPassFullUrl) {
-      return `${this.targetUrl.protocol}${slashString}${this.targetUrl.hostname}${fullPath}`;
-    }
-
-    return hostnameDiffers ? `${this.targetUrl.hostname}${fullPath}` : fullPath;
   }
 
   get protocol() {
@@ -167,25 +158,25 @@ class CleanRedirect {
   setPersistQueryString(bool) {
     validator.validateIsBoolean(bool);
 
-    return this.setConfigProperty(persistQuery, bool);
+    return this.setConfigProperty(props.persistQuery, bool);
   }
 
   setPersistHash(bool) {
     validator.validateIsBoolean(bool);
 
-    return this.setConfigProperty(persistHash, bool);
+    return this.setConfigProperty(props.persistHash, bool);
   }
 
   setRedirectType(code) {
     validator.validateRedirectCode(code);
 
-    return this.setConfigProperty(redirectType, code);
+    return this.setConfigProperty(props.redirectType, code);
   }
 
   setPathOverride(path) {
     validator.validateIsString(path);
 
-    return this.setConfigProperty(pathOverride, path);
+    return this.setConfigProperty(props.pathOverride, path);
   }
 
   /**

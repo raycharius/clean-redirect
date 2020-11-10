@@ -1,14 +1,10 @@
 const validator = require('./validator');
 const {
   questionMark,
-  hashSymbol,
+  hash,
   blankString,
   slashString,
-  protocolProp,
-  hostnameProp,
-  pathProp,
-  queryStringProp,
-  hashProp,
+  props,
 } = require('./constants');
 
 class CleanRedirectUrl {
@@ -19,24 +15,33 @@ class CleanRedirectUrl {
     this.path = this.parsePath();
     this.queryString = this.parseQueryString();
     this.hash = this.parseHash();
-    this.url = this.concatUrl();
+    this.url = this.getFullPath();
   }
 
   parsePath() {
-    return this.uri.split(questionMark).shift();
+    const startQueryStringIndex = this.uri.indexOf(questionMark);
+    const startHashIndex = this.uri.indexOf(hash);
+    const hasQueryString = startQueryStringIndex >= 0;
+    const hasSlash = startHashIndex >= 0;
+
+    if (hasQueryString) {
+      return this.uri.split(questionMark).shift();
+    }
+
+    return hasSlash ? this.uri.split(hash).shift() : this.uri;
   }
 
   parseQueryString() {
     const startQueryStringIndex = this.uri.indexOf(questionMark);
-    const startHashIndex = this.uri.indexOf(hashSymbol);
+    const startHashIndex = this.uri.indexOf(hash);
     const hasQueryString = startQueryStringIndex >= 0;
     const hasSlash = startHashIndex >= 0;
 
     if (hasQueryString && hasSlash) {
-      return this.uri.slice(startQueryStringIndex + 1, startHashIndex);
+      return this.uri.slice(startQueryStringIndex, startHashIndex);
     }
 
-    return hasSlash ? this.uri.slice(startQueryStringIndex + 1) : blankString;
+    return !hasSlash ? this.uri.slice(startQueryStringIndex) : blankString;
   }
 
   /**
@@ -44,10 +49,10 @@ class CleanRedirectUrl {
    */
 
   parseHash() {
-    const startHashIndex = this.uri.indexOf(hashSymbol);
+    const startHashIndex = this.uri.indexOf(hash);
     const hasSlash = startHashIndex >= 0;
 
-    return hasSlash ? this.uri.slice(startHashIndex + 1) : blankString;
+    return hasSlash ? this.uri.slice(startHashIndex) : blankString;
   }
 
   /**
@@ -55,39 +60,57 @@ class CleanRedirectUrl {
    */
 
   concatUri() {
-    return `${this.path}${this.queryString.length > 0 ? `${questionMark}${this.queryString}` : blankString}${this.hash.length > 0 ? `${hashSymbol}${this.hash}` : blankString}`;
+    return `${this.path}${this.queryString}${this.hash.length}`;
   }
 
-  /**
-   * @private
-   */
+  getFullPath(config = {}) {
+    const {
+      includeProtocol = true,
+      includeHostname = true,
+      includeQueryString = true,
+      includeHash = true,
+    } = config;
+    const urlParts = [];
 
-  concatUrl() {
-    return `${this.protocol}${slashString}${this.hostname}${this.path}${this.queryString.length > 0 ? `${questionMark}${this.queryString}` : blankString}${this.hash.length > 0 ? `${hashSymbol}${this.hash}` : blankString}`;
+    if (includeProtocol) {
+      urlParts.push(this.protocol, slashString);
+    }
+
+    if (includeHostname || includeProtocol) {
+      urlParts.push(this.hostname);
+    }
+
+    urlParts.push(this.path);
+
+    if (includeQueryString) {
+      urlParts.push(this.queryString);
+    }
+
+    if (includeHash) {
+      urlParts.push(this.hash);
+    }
+
+    return urlParts.join('');
   }
 
-  getFullPath({ includeQueryString = true, includeHash = true }) {
-    return `${this.path}${this.queryString.length > 0 && includeQueryString ? `${questionMark}${this.queryString}` : blankString}${this.hash.length > 0 && includeHash ? `${hashSymbol}${this.hash}` : blankString}`;
+  setProtocol(string) {
+    return this.setProperty(props.protocol, string);
   }
 
-  setProtocol(protocol) {
-    return this.setProperty(protocolProp, protocol);
+  setHostname(string) {
+    return this.setProperty(props.hostname, string);
   }
 
-  setHostname(hostname) {
-    return this.setProperty(hostnameProp, hostname);
+  setPath(string) {
+    return this.setProperty(props.path, string);
   }
 
-  setPath(path) {
-    return this.setProperty(pathProp, path);
+  setQueryString(string) {
+    return this.setProperty(props.queryString, string);
   }
 
-  setQueryString(queryString) {
-    return this.setProperty(queryStringProp, queryString);
-  }
-
-  setHash(hash) {
-    return this.setProperty(hashProp, hash);
+  setHash(string) {
+    return this.setProperty(props.hash, string);
   }
 
   /**
@@ -99,7 +122,7 @@ class CleanRedirectUrl {
 
     this[property] = value;
 
-    this.url = this.concatUrl();
+    this.url = this.getFullPath();
     this.uri = this.concatUri();
 
     return this;
