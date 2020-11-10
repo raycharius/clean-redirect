@@ -13,7 +13,7 @@ module.exports = {
     path: 'path',
     queryString: 'queryString',
     hash: 'hash',
-    persistQuery: 'persistQuery',
+    persistQueryString: 'persistQueryString',
     persistHash: 'persistHash',
     redirectType: 'redirectType',
     pathOverride: 'pathOverride',

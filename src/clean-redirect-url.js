@@ -5,6 +5,7 @@ const {
   blankString,
   slashString,
   props,
+  slash,
 } = require('./constants');
 
 class CleanRedirectUrl {
@@ -15,33 +16,35 @@ class CleanRedirectUrl {
     this.path = this.parsePath();
     this.queryString = this.parseQueryString();
     this.hash = this.parseHash();
-    this.url = this.getFullPath();
+    this.url = this.generateUrl();
   }
 
   parsePath() {
     const startQueryStringIndex = this.uri.indexOf(questionMark);
     const startHashIndex = this.uri.indexOf(hash);
     const hasQueryString = startQueryStringIndex >= 0;
-    const hasSlash = startHashIndex >= 0;
+    const hasHash = startHashIndex >= 0;
 
     if (hasQueryString) {
       return this.uri.split(questionMark).shift();
     }
 
-    return hasSlash ? this.uri.split(hash).shift() : this.uri;
+    return hasHash ? this.uri.split(hash).shift() : this.uri;
   }
 
   parseQueryString() {
     const startQueryStringIndex = this.uri.indexOf(questionMark);
     const startHashIndex = this.uri.indexOf(hash);
     const hasQueryString = startQueryStringIndex >= 0;
-    const hasSlash = startHashIndex >= 0;
+    const hasHash = startHashIndex >= 0;
 
-    if (hasQueryString && hasSlash) {
-      return this.uri.slice(startQueryStringIndex, startHashIndex);
+    if (!hasQueryString) {
+      return blankString;
     }
 
-    return !hasSlash ? this.uri.slice(startQueryStringIndex) : blankString;
+    return hasHash
+      ? this.uri.slice(startQueryStringIndex, startHashIndex)
+      : this.uri.slice(startQueryStringIndex);
   }
 
   /**
@@ -50,9 +53,9 @@ class CleanRedirectUrl {
 
   parseHash() {
     const startHashIndex = this.uri.indexOf(hash);
-    const hasSlash = startHashIndex >= 0;
+    const hasHash = startHashIndex >= 0;
 
-    return hasSlash ? this.uri.slice(startHashIndex) : blankString;
+    return hasHash ? this.uri.slice(startHashIndex) : blankString;
   }
 
   /**
@@ -60,10 +63,10 @@ class CleanRedirectUrl {
    */
 
   concatUri() {
-    return `${this.path}${this.queryString}${this.hash.length}`;
+    return `${this.path}${this.queryString}${this.hash}`;
   }
 
-  getFullPath(config = {}) {
+  generateUrl(config = {}) {
     const {
       includeProtocol = true,
       includeHostname = true,
@@ -102,7 +105,7 @@ class CleanRedirectUrl {
   }
 
   setPath(string) {
-    return this.setProperty(props.path, string);
+    return this.setProperty(props.path, string === blankString ? slash : string);
   }
 
   setQueryString(string) {
@@ -122,7 +125,7 @@ class CleanRedirectUrl {
 
     this[property] = value;
 
-    this.url = this.getFullPath();
+    this.url = this.generateUrl();
     this.uri = this.concatUri();
 
     return this;

@@ -8,7 +8,7 @@ const {
 } = require('./constants');
 
 class CleanRedirect {
-  constructor(urlData, config) {
+  constructor(urlData, config = {}) {
     this.config = {
       forceHttps: config.forceHttps || false,
       toWww: config.toWww || false,
@@ -18,8 +18,10 @@ class CleanRedirect {
       persistQueryString: config.persistQueryString || false,
       persistHash: config.persistHash || false,
       alwaysPassFullUrl: config.alwaysPassFullUrl || false,
-      redirectType: config.redirectType || null,
+      redirectType: config.redirectType || 302,
     };
+
+    validator.validateCleanRedirectConfig(this.config);
 
     this.sourceUrl = new CleanRedirectUrl(urlData);
 
@@ -27,8 +29,6 @@ class CleanRedirect {
       .setProtocol(this.config.forceHttps ? https : this.sourceUrl.protocol)
       .setHostname(this.getTargetHostname())
       .setPath(this.getTargetPath());
-
-    this.customRedirects = config.customRedirects || null;
 
     this.pathOverride = null;
   }
@@ -83,13 +83,13 @@ class CleanRedirect {
     }
 
     if (this.config.alwaysPassFullUrl) {
-      return this.targetUrl.getFullPath({
+      return this.targetUrl.generateUrl({
         includeQueryString: this.config.persistQueryString,
         includeHash: this.config.persistHash,
       });
     }
 
-    return this.targetUrl.getFullPath({
+    return this.targetUrl.generateUrl({
       includeProtocol: this.sourceUrl.protocol !== this.targetUrl.protocol,
       includeHostname: this.sourceUrl.hostname !== this.targetUrl.hostname,
       includeQueryString: this.config.persistQueryString,
@@ -111,6 +111,10 @@ class CleanRedirect {
 
   get queryString() {
     return this.targetUrl.queryString;
+  }
+
+  get hash() {
+    return this.targetUrl.hash;
   }
 
   get redirectType() {
@@ -150,7 +154,7 @@ class CleanRedirect {
   setPersistQueryString(bool) {
     validator.validateIsBoolean(bool);
 
-    return this.setConfigProperty(props.persistQuery, bool);
+    return this.setConfigProperty(props.persistQueryString, bool);
   }
 
   setPersistHash(bool) {
@@ -168,7 +172,9 @@ class CleanRedirect {
   setPathOverride(path) {
     validator.validateIsString(path);
 
-    return this.setConfigProperty(props.pathOverride, path);
+    this.pathOverride = path;
+
+    return this;
   }
 
   /**

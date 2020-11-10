@@ -10,10 +10,9 @@ module.exports = (options) => (req, res, next) => {
   } = options;
 
   const cleanRedirect = new CleanRedirect({
-    method: req.method,
     protocol: req.protocol,
     hostname: req.get(host),
-    originalUrl: req.originalUrl,
+    uri: req.originalUrl,
   }, config);
 
   if (customRedirects) {
@@ -22,6 +21,7 @@ module.exports = (options) => (req, res, next) => {
 
   if (deferRedirectToNext) {
     res.locals.cleanRedirect = cleanRedirect;
+
     return next();
   }
 

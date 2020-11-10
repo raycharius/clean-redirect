@@ -1,5 +1,15 @@
 const CleanRedirectError = require('./clean-redirect-error');
 
+const validateCleanRedirectConfig = (config) => {
+  validateBooleanCleanRedirectConfigOptions(config);
+
+  if (config.toWww && config.toNaked) {
+    throw new CleanRedirectError('Both \'toWww\' and \'toNaked\' cannot be simultaneously set to true.');
+  }
+
+  validateRedirectCode(config.redirectType);
+};
+
 const validateRedirectCode = (code) => {
   const validRedirectCodes = [301, 302];
 
@@ -8,13 +18,15 @@ const validateRedirectCode = (code) => {
   }
 };
 
-const validateConfig = ({ redirectType, toWww, toNaked }) => {
-  validateRedirectCode(redirectType);
+const validateBooleanCleanRedirectConfigOptions = ({ redirectType, ...config }) => {
+  Object.keys(config).forEach((key) => {
+    const value = config[key];
 
-  if (toWww && toNaked) {
-    throw new CleanRedirectError('Both \'toWww\' and \'toNaked\' cannot be simultaneously set to true.');
-  }
-};
+    if (typeof value !== 'boolean') {
+      throw new CleanRedirectError(`Expected a value of type 'boolean' for options '${key}'. Instead received type ${typeof typeof value}.`);
+    }
+  });
+}
 
 const validateRequestData = (requestData) => {
   Object.keys(requestData).forEach((key) => {
@@ -49,7 +61,7 @@ const validateCustomRedirects = (customRedirects) => {
 };
 
 module.exports = {
-  validateConfig,
+  validateCleanRedirectConfig,
   validateRequestData,
   validateIsString,
   validateRedirectCode,
