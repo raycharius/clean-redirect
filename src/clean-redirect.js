@@ -24,21 +24,13 @@ class CleanRedirect {
     this.sourceUrl = new CleanRedirectUrl(urlData);
 
     this.targetUrl = new CleanRedirectUrl(urlData)
-      .setProtocol(this.getTargetProtocol())
+      .setProtocol(this.config.forceHttps ? https : this.sourceUrl.protocol)
       .setHostname(this.getTargetHostname())
       .setPath(this.getTargetPath());
 
     this.customRedirects = config.customRedirects || null;
 
     this.pathOverride = null;
-  }
-
-  /**
-   * @private
-   */
-
-  getTargetProtocol() {
-    return this.config.forceHttps ? https : this.sourceUrl.protocol;
   }
 
   /**
