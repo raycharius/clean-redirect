@@ -22,13 +22,14 @@ module.exports = (options) => (req, res, next) => {
 
   if (deferRedirectToNext) {
     res.locals.cleanRedirect = cleanRedirect;
+    return next();
   }
 
-  if (cleanRedirect.requiresRedirect && !deferRedirectToNext) {
+  if (cleanRedirect.requiresRedirect) {
     res.redirect(cleanRedirect.redirectType, cleanRedirect.getRedirectUrl());
   }
 
-  if (deferRedirectToNext || callNextOnRedirect || !cleanRedirect.requiresRedirect) {
-    next();
+  if (callNextOnRedirect || !cleanRedirect.requiresRedirect) {
+    return next();
   }
 };
