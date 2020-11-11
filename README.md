@@ -6,7 +6,7 @@
     <h3 align="center">All your redirect logic wrapped into one clean redirect</h3>
 </p>
 
-<p align="center" style="max-width: 550px">
+<p align="center">
     Force HTTPS, remove trailing slash, to lower case, naked to www, and your own custom logic, as one redirect.
     <br />
     <br />
