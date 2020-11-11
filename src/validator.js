@@ -1,6 +1,6 @@
 const CleanRedirectError = require('./clean-redirect-error');
 
-const validateBooleanCleanRedirectConfigOptions = ({ redirectType, ...config }) => {
+const validateBooleanCleanRedirectConfigOptions = ({ redirectCode, ...config }) => {
   Object.keys(config).forEach((key) => {
     const value = config[key];
 
@@ -14,7 +14,7 @@ const validateRedirectCode = (code) => {
   const validRedirectCodes = [301, 302];
 
   if (!validRedirectCodes.includes(code)) {
-    throw new CleanRedirectError('Option \'redirectType\' must have an integer value of either 301 or 302');
+    throw new CleanRedirectError('Option \'redirectCode\' must have an integer value of either 301 or 302');
   }
 };
 
@@ -25,7 +25,7 @@ const validateCleanRedirectConfig = (config) => {
     throw new CleanRedirectError('Both \'toWww\' and \'toNaked\' cannot be simultaneously set to true.');
   }
 
-  validateRedirectCode(config.redirectType);
+  validateRedirectCode(config.redirectCode);
 };
 
 const validateCleanRedirectUrlArgs = (urlData) => {

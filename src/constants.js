@@ -15,7 +15,7 @@ module.exports = {
     hash: 'hash',
     persistQueryString: 'persistQueryString',
     persistHash: 'persistHash',
-    redirectType: 'redirectType',
+    redirectCode: 'redirectCode',
     pathOverride: 'pathOverride',
   },
 };

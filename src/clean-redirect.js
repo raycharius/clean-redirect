@@ -17,7 +17,7 @@ class CleanRedirect {
       removeTrailingSlash: config.removeTrailingSlash || false,
       persistQueryString: config.persistQueryString || false,
       alwaysPassFullUrl: config.alwaysPassFullUrl || false,
-      redirectType: config.redirectType || 302,
+      redirectCode: config.redirectCode || 302,
     };
 
     validator.validateCleanRedirectConfig(this.config);
@@ -112,8 +112,8 @@ class CleanRedirect {
     return this.targetUrl.hash;
   }
 
-  get redirectType() {
-    return this.config.redirectType;
+  get redirectCode() {
+    return this.config.redirectCode;
   }
 
   setProtocol(protocol) {
@@ -152,10 +152,10 @@ class CleanRedirect {
     return this.setConfigProperty(props.persistQueryString, bool);
   }
 
-  setRedirectType(code) {
+  setRedirectCode(code) {
     validator.validateRedirectCode(code);
 
-    return this.setConfigProperty(props.redirectType, code);
+    return this.setConfigProperty(props.redirectCode, code);
   }
 
   setPathOverride(path) {
