@@ -80,8 +80,12 @@ const redirector = cleanRedirect({
 
 app.use(redirector);
 
-// 301 http://yourapp.com/SUBSCRIBE/?email=johndoe@gmail.com => https://www.yourapp.com/subscribe?email=johndoe@gmail.com
+// http://yourapp.com/SUBSCRIBE/?email=johndoe@gmail.com =>
+// https://www.yourapp.com/subscribe?email=johndoe@gmail.com
+// Redirect Code: 301
 
-// 302 http://yourapp.com/STORE/?showBundles=true => https://www.yourapp.com/marketplace
+// http://yourapp.com/STORE/?showBundles=true =>
+// https://www.yourapp.com/marketplace
+// Redirect Code: 302
 
 ```
