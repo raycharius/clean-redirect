@@ -10,9 +10,9 @@ const {
 
 const hostnameNoWww = 'trumpgottrumped.com';
 const pathTrailingSlash = `${path}/`;
-const uriTrailingSlash = `${pathTrailingSlash}${queryString}${hash}`;
-const uriUpperCase = `${path.toUpperCase()}${queryString}${hash}`;
-const uriUpperCaseTrailingSlash = `${path.toUpperCase()}/${queryString}${hash}`;
+const uriTrailingSlash = `${pathTrailingSlash}${queryString}`;
+const uriUpperCase = `${path.toUpperCase()}${queryString}`;
+const uriUpperCaseTrailingSlash = `${path.toUpperCase()}/${queryString}`;
 
 module.exports = {
   protocol,

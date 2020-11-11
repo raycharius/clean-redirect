@@ -13,12 +13,17 @@ const {
   blankString,
   slash,
   querySymbol,
-  hashSymbol,
 } = require('./mocks/constants.mock');
 
 const testValidInstantiationAndParsing = (mock, result, urlCase) => {
   describe(`CleanRedirectUrl – Instantiation works correctly ${urlCase}`, () => {
     const cleanRedirectUrl = new CleanRedirectUrl(mock);
+
+    test('Instantiation with missing parameters throws an error', () => {
+      expect(() => new CleanRedirectUrl({ protocol: undefined, hostname, uri})).toThrow();
+      expect(() => new CleanRedirectUrl({ protocol, hostname: undefined, uri})).toThrow();
+      expect(() => new CleanRedirectUrl({ protocol, hostname, uri: undefined})).toThrow();
+    });
 
     test('Passing in valid parameters creates a valid instance of the object', () => {
       expect(cleanRedirectUrl).toBeInstanceOf(CleanRedirectUrl);
@@ -44,11 +49,6 @@ const testValidInstantiationAndParsing = (mock, result, urlCase) => {
       expect(cleanRedirectUrl.queryString).toEqual(result.queryString);
     });
 
-    test('Hash is correctly set', () => {
-      expect(cleanRedirectUrl.hash).toBeDefined();
-      expect(cleanRedirectUrl.hash).toEqual(result.hash);
-    });
-
     test('URI is correctly set', () => {
       expect(cleanRedirectUrl.uri).toBeDefined();
       expect(cleanRedirectUrl.uri).toEqual(result.uri);
@@ -68,12 +68,6 @@ const testValidInstantiationAndParsing = (mock, result, urlCase) => {
     if (result.queryString !== blankString) {
       test('Query string starts with a question mark', () => {
         expect(cleanRedirectUrl.queryString.startsWith(querySymbol)).toEqual(true);
-      });
-    }
-
-    if (result.hash !== blankString) {
-      test('Hash starts with a hash sign', () => {
-        expect(cleanRedirectUrl.hash.startsWith(hashSymbol)).toEqual(true);
       });
     }
   });
@@ -112,15 +106,11 @@ describe('CleanRedirectUrl – Setter methods work properly', () => {
   });
 
   test('URI updates and concats on setter methods', () => {
-    expect(cleanRedirectUrl.uri).toEqual(uri);
+    expect(cleanRedirectUrl.uri).toEqual(`${uri}${hash}`);
   });
 
   test('URL updates and concats on setter methods', () => {
-    expect(cleanRedirectUrl.url).toEqual(url);
-  });
-
-  test('URL updates and concats on setter methods', () => {
-    expect(cleanRedirectUrl.url).toEqual(url);
+    expect(cleanRedirectUrl.url).toEqual(`${url}${hash}`);
   });
 
   test('Passing in a blank string to path sets root', () => {
@@ -133,12 +123,12 @@ describe('CleanRedirectUrl – The generateUrl method works with in all cases', 
   const cleanRedirectUrl = new CleanRedirectUrl({
     protocol,
     hostname,
-    uri: `${path}${queryString}${hash}`,
+    uri: `${path}${queryString}`,
   });
 
   test('With no parameters', () => {
     const result = cleanRedirectUrl.generateUrl();
-    expect(result).toEqual(`${protocol}://${hostname}${path}${queryString}${hash}`);
+    expect(result).toEqual(`${protocol}://${hostname}${path}${queryString}`);
   });
 
   test('All parameters false', () => {
@@ -146,7 +136,6 @@ describe('CleanRedirectUrl – The generateUrl method works with in all cases', 
       includeProtocol: false,
       includeHostname: false,
       includeQueryString: false,
-      includeHash: false,
     });
     expect(result).toEqual(path);
   });
@@ -156,7 +145,6 @@ describe('CleanRedirectUrl – The generateUrl method works with in all cases', 
       includeProtocol: true,
       includeHostname: false,
       includeQueryString: false,
-      includeHash: false,
     });
     expect(result).toEqual(`${protocol}://${hostname}${path}`);
   });
@@ -166,7 +154,6 @@ describe('CleanRedirectUrl – The generateUrl method works with in all cases', 
       includeProtocol: true,
       includeHostname: true,
       includeQueryString: false,
-      includeHash: false,
     });
     expect(result).toEqual(`${protocol}://${hostname}${path}`);
   });
@@ -176,7 +163,6 @@ describe('CleanRedirectUrl – The generateUrl method works with in all cases', 
       includeProtocol: false,
       includeHostname: true,
       includeQueryString: false,
-      includeHash: false,
     });
     expect(result).toEqual(`${hostname}${path}`);
   });
@@ -186,28 +172,7 @@ describe('CleanRedirectUrl – The generateUrl method works with in all cases', 
       includeProtocol: false,
       includeHostname: false,
       includeQueryString: true,
-      includeHash: false,
     });
     expect(result).toEqual(`${path}${queryString}`);
-  });
-
-  test('With includeHash set to true', () => {
-    const result = cleanRedirectUrl.generateUrl({
-      includeProtocol: false,
-      includeHostname: false,
-      includeQueryString: false,
-      includeHash: true,
-    });
-    expect(result).toEqual(`${path}${hash}`);
-  });
-
-  test('With includeHash and includeQueryString set to true', () => {
-    const result = cleanRedirectUrl.generateUrl({
-      includeProtocol: false,
-      includeHostname: false,
-      includeQueryString: true,
-      includeHash: true,
-    });
-    expect(result).toEqual(`${path}${queryString}${hash}`);
   });
 });

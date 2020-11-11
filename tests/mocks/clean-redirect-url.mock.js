@@ -19,7 +19,7 @@ module.exports = {
       mock: {
         protocol,
         hostname,
-        uri: `${path}${queryString}${hash}`,
+        uri: `${path}${queryString}`,
       },
       result: {
         protocol,
@@ -27,8 +27,8 @@ module.exports = {
         path,
         queryString,
         hash,
-        uri: `${path}${queryString}${hash}`,
-        url: `${protocol}://${hostname}${path}${queryString}${hash}`,
+        uri: `${path}${queryString}`,
+        url: `${protocol}://${hostname}${path}${queryString}`,
       },
     },
     withQueryNoHash: {

@@ -25,7 +25,6 @@ describe('CleanRedirect – Instantiation works correctly', () => {
     expect(cleanRedirect.sourceUrl.hostname).toEqual(hostname);
     expect(cleanRedirect.sourceUrl.path).toEqual(path);
     expect(cleanRedirect.sourceUrl.queryString).toEqual(queryString);
-    expect(cleanRedirect.sourceUrl.hash).toEqual(hash);
     expect(cleanRedirect.sourceUrl.uri).toEqual(uri);
     expect(cleanRedirect.sourceUrl.url).toEqual(url);
   });
@@ -45,7 +44,6 @@ describe('CleanRedirect – Instantiation works correctly', () => {
     expect(cleanRedirect.config.pathToLowerCase).toEqual(false);
     expect(cleanRedirect.config.removeTrailingSlash).toEqual(false);
     expect(cleanRedirect.config.persistQueryString).toEqual(false);
-    expect(cleanRedirect.config.persistHash).toEqual(false);
     expect(cleanRedirect.config.alwaysPassFullUrl).toEqual(false);
     expect(cleanRedirect.config.redirectType).toEqual(302);
   });
@@ -58,7 +56,6 @@ describe('CleanRedirect – Instantiation works correctly', () => {
       pathToLowerCase: false,
       removeTrailingSlash: false,
       persistQueryString: false,
-      persistHash: false,
       alwaysPassFullUrl: false,
     });
 
@@ -68,7 +65,6 @@ describe('CleanRedirect – Instantiation works correctly', () => {
     expect(cleanRedirect.config.pathToLowerCase).toEqual(false);
     expect(cleanRedirect.config.removeTrailingSlash).toEqual(false);
     expect(cleanRedirect.config.persistQueryString).toEqual(false);
-    expect(cleanRedirect.config.persistHash).toEqual(false);
     expect(cleanRedirect.config.alwaysPassFullUrl).toEqual(false);
     expect(cleanRedirect.config.redirectType).toEqual(302);
   });
@@ -81,7 +77,6 @@ describe('CleanRedirect – Instantiation works correctly', () => {
       pathToLowerCase: true,
       removeTrailingSlash: true,
       persistQueryString: true,
-      persistHash: true,
       alwaysPassFullUrl: true,
     });
 
@@ -91,7 +86,6 @@ describe('CleanRedirect – Instantiation works correctly', () => {
     expect(cleanRedirect.config.pathToLowerCase).toEqual(true);
     expect(cleanRedirect.config.removeTrailingSlash).toEqual(true);
     expect(cleanRedirect.config.persistQueryString).toEqual(true);
-    expect(cleanRedirect.config.persistHash).toEqual(true);
     expect(cleanRedirect.config.alwaysPassFullUrl).toEqual(true);
     expect(cleanRedirect.config.redirectType).toEqual(302);
   });
@@ -135,21 +129,19 @@ describe('CleanRedirect – Parsers work correctly based on passed options', () 
     expect(cleanRedirect.targetUrl.hostname).toEqual(hostname);
     expect(cleanRedirect.targetUrl.path).toEqual(path);
     expect(cleanRedirect.targetUrl.queryString).toEqual(queryString);
-    expect(cleanRedirect.targetUrl.hash).toEqual(hash);
     expect(cleanRedirect.targetUrl.uri).toEqual(uri);
     expect(cleanRedirect.targetUrl.url).toEqual(url);
   });
 
   test('With forceHttps set to true, a protocol value of http is mutated into https, redirect is necessary, etc.', () => {
     const cleanRedirect = new CleanRedirect({ protocol: 'http', hostname, uri }, { forceHttps: true });
-    const expectedUrl = `https://${hostname}${path}${queryString}${hash}`;
+    const expectedUrl = `https://${hostname}${path}${queryString}`;
     const expectedRedirectUrl = `https://${hostname}${path}`;
 
     expect(cleanRedirect.targetUrl.protocol).toEqual('https');
     expect(cleanRedirect.targetUrl.hostname).toEqual(hostname);
     expect(cleanRedirect.targetUrl.path).toEqual(path);
     expect(cleanRedirect.targetUrl.queryString).toEqual(queryString);
-    expect(cleanRedirect.targetUrl.hash).toEqual(hash);
     expect(cleanRedirect.targetUrl.uri).toEqual(uri);
     expect(cleanRedirect.targetUrl.url).toEqual(expectedUrl);
     expect(cleanRedirect.requiresRedirect()).toEqual(true);
@@ -158,14 +150,13 @@ describe('CleanRedirect – Parsers work correctly based on passed options', () 
 
   test('With toWww set to true, a hostname value starting without www. is mutated into hostname with www, redirect is necessary, etc.', () => {
     const cleanRedirect = new CleanRedirect({ protocol, hostname: hostnameNoWww, uri }, { toWww: true });
-    const expectedUrl = `${protocol}://${hostname}${path}${queryString}${hash}`;
+    const expectedUrl = `${protocol}://${hostname}${path}${queryString}`;
     const expectedRedirectUrl = `${hostname}${path}`;
 
     expect(cleanRedirect.targetUrl.protocol).toEqual(protocol);
     expect(cleanRedirect.targetUrl.hostname).toEqual(hostname);
     expect(cleanRedirect.targetUrl.path).toEqual(path);
     expect(cleanRedirect.targetUrl.queryString).toEqual(queryString);
-    expect(cleanRedirect.targetUrl.hash).toEqual(hash);
     expect(cleanRedirect.targetUrl.uri).toEqual(uri);
     expect(cleanRedirect.targetUrl.url).toEqual(expectedUrl);
     expect(cleanRedirect.requiresRedirect()).toEqual(true);
@@ -174,14 +165,13 @@ describe('CleanRedirect – Parsers work correctly based on passed options', () 
 
   test('With toNaked set to true, a hostname value starting with www. is mutated into hostname without www, redirect is necessary, etc.', () => {
     const cleanRedirect = new CleanRedirect({ protocol, hostname, uri }, { toNaked: true });
-    const expectedUrl = `${protocol}://${hostnameNoWww}${path}${queryString}${hash}`;
+    const expectedUrl = `${protocol}://${hostnameNoWww}${path}${queryString}`;
     const expectedRedirectUrl = `${hostnameNoWww}${path}`;
 
     expect(cleanRedirect.targetUrl.protocol).toEqual(protocol);
     expect(cleanRedirect.targetUrl.hostname).toEqual(hostnameNoWww);
     expect(cleanRedirect.targetUrl.path).toEqual(path);
     expect(cleanRedirect.targetUrl.queryString).toEqual(queryString);
-    expect(cleanRedirect.targetUrl.hash).toEqual(hash);
     expect(cleanRedirect.targetUrl.uri).toEqual(uri);
     expect(cleanRedirect.targetUrl.url).toEqual(expectedUrl);
     expect(cleanRedirect.requiresRedirect()).toEqual(true);
@@ -190,14 +180,13 @@ describe('CleanRedirect – Parsers work correctly based on passed options', () 
 
   test('With removeTrailingSlash set to true, a path with a trailing slash is mutated into path without one, redirect is necessary, etc.', () => {
     const cleanRedirect = new CleanRedirect({ protocol, hostname, uri: uriTrailingSlash }, { removeTrailingSlash: true });
-    const expectedUrl = `${protocol}://${hostname}${path}${queryString}${hash}`;
+    const expectedUrl = `${protocol}://${hostname}${path}${queryString}`;
     const expectedRedirectUrl = path;
 
     expect(cleanRedirect.targetUrl.protocol).toEqual(protocol);
     expect(cleanRedirect.targetUrl.hostname).toEqual(hostname);
     expect(cleanRedirect.targetUrl.path).toEqual(path);
     expect(cleanRedirect.targetUrl.queryString).toEqual(queryString);
-    expect(cleanRedirect.targetUrl.hash).toEqual(hash);
     expect(cleanRedirect.targetUrl.uri).toEqual(uri);
     expect(cleanRedirect.targetUrl.url).toEqual(expectedUrl);
     expect(cleanRedirect.requiresRedirect()).toEqual(true);
@@ -206,14 +195,13 @@ describe('CleanRedirect – Parsers work correctly based on passed options', () 
 
   test('With pathToLowerCase set to true, a path with a upper case letters is mutated into path without them, redirect is necessary, etc.', () => {
     const cleanRedirect = new CleanRedirect({ protocol, hostname, uri: uriUpperCase }, { pathToLowerCase: true });
-    const expectedUrl = `${protocol}://${hostname}${path}${queryString}${hash}`;
+    const expectedUrl = `${protocol}://${hostname}${path}${queryString}`;
     const expectedRedirectUrl = path;
 
     expect(cleanRedirect.targetUrl.protocol).toEqual(protocol);
     expect(cleanRedirect.targetUrl.hostname).toEqual(hostname);
     expect(cleanRedirect.targetUrl.path).toEqual(path);
     expect(cleanRedirect.targetUrl.queryString).toEqual(queryString);
-    expect(cleanRedirect.targetUrl.hash).toEqual(hash);
     expect(cleanRedirect.targetUrl.uri).toEqual(uri);
     expect(cleanRedirect.targetUrl.url).toEqual(expectedUrl);
     expect(cleanRedirect.requiresRedirect()).toEqual(true);
@@ -222,14 +210,13 @@ describe('CleanRedirect – Parsers work correctly based on passed options', () 
 
   test('With pathToLowerCase and removeTrailingSlash set to true, the path is lower case, without trailing slash, redirect is necessary, etc.', () => {
     const cleanRedirect = new CleanRedirect({ protocol, hostname, uri: uriUpperCaseTrailingSlash }, { removeTrailingSlash: true, pathToLowerCase: true });
-    const expectedUrl = `${protocol}://${hostname}${path}${queryString}${hash}`;
+    const expectedUrl = `${protocol}://${hostname}${path}${queryString}`;
     const expectedRedirectUrl = path;
 
     expect(cleanRedirect.targetUrl.protocol).toEqual(protocol);
     expect(cleanRedirect.targetUrl.hostname).toEqual(hostname);
     expect(cleanRedirect.targetUrl.path).toEqual(path);
     expect(cleanRedirect.targetUrl.queryString).toEqual(queryString);
-    expect(cleanRedirect.targetUrl.hash).toEqual(hash);
     expect(cleanRedirect.targetUrl.uri).toEqual(uri);
     expect(cleanRedirect.targetUrl.url).toEqual(expectedUrl);
     expect(cleanRedirect.requiresRedirect()).toEqual(true);
@@ -238,78 +225,43 @@ describe('CleanRedirect – Parsers work correctly based on passed options', () 
 
   test('With persistQueryString set to true and toLowerCase, the path is lower case, query string is available in redirect URL, redirect is necessary, etc.', () => {
     const cleanRedirect = new CleanRedirect({ protocol, hostname, uri: uriUpperCase }, { persistQueryString: true, pathToLowerCase: true });
-    const expectedUrl = `${protocol}://${hostname}${path}${queryString}${hash}`;
+    const expectedUrl = `${protocol}://${hostname}${path}${queryString}`;
     const expectedRedirectUrl = `${path}${queryString}`;
 
     expect(cleanRedirect.targetUrl.protocol).toEqual(protocol);
     expect(cleanRedirect.targetUrl.hostname).toEqual(hostname);
     expect(cleanRedirect.targetUrl.path).toEqual(path);
     expect(cleanRedirect.targetUrl.queryString).toEqual(queryString);
-    expect(cleanRedirect.targetUrl.hash).toEqual(hash);
     expect(cleanRedirect.targetUrl.uri).toEqual(uri);
     expect(cleanRedirect.targetUrl.url).toEqual(expectedUrl);
     expect(cleanRedirect.requiresRedirect()).toEqual(true);
     expect(cleanRedirect.getRedirectUrl()).toEqual(expectedRedirectUrl);
   });
 
-  test('With persistHash set to true and toLowerCase, the path is lower case, hash is available in redirect URL, redirect is necessary, etc.', () => {
-    const cleanRedirect = new CleanRedirect({ protocol, hostname, uri: uriUpperCase }, { persistHash: true, pathToLowerCase: true });
-    const expectedUrl = `${protocol}://${hostname}${path}${queryString}${hash}`;
-    const expectedRedirectUrl = `${path}${hash}`;
-
-    expect(cleanRedirect.targetUrl.protocol).toEqual(protocol);
-    expect(cleanRedirect.targetUrl.hostname).toEqual(hostname);
-    expect(cleanRedirect.targetUrl.path).toEqual(path);
-    expect(cleanRedirect.targetUrl.queryString).toEqual(queryString);
-    expect(cleanRedirect.targetUrl.hash).toEqual(hash);
-    expect(cleanRedirect.targetUrl.uri).toEqual(uri);
-    expect(cleanRedirect.targetUrl.url).toEqual(expectedUrl);
-    expect(cleanRedirect.requiresRedirect()).toEqual(true);
-    expect(cleanRedirect.getRedirectUrl()).toEqual(expectedRedirectUrl);
-  });
-
-  test('With persistHash and persistQueryString set to true and toLowerCase, the path is lower case, query string and hash are available in redirect URL, redirect is necessary, etc.', () => {
-    const cleanRedirect = new CleanRedirect({ protocol, hostname, uri: uriUpperCase }, { persistQueryString: true, persistHash: true, pathToLowerCase: true });
-    const expectedUrl = `${protocol}://${hostname}${path}${queryString}${hash}`;
-    const expectedRedirectUrl = `${path}${queryString}${hash}`;
-
-    expect(cleanRedirect.targetUrl.protocol).toEqual(protocol);
-    expect(cleanRedirect.targetUrl.hostname).toEqual(hostname);
-    expect(cleanRedirect.targetUrl.path).toEqual(path);
-    expect(cleanRedirect.targetUrl.queryString).toEqual(queryString);
-    expect(cleanRedirect.targetUrl.hash).toEqual(hash);
-    expect(cleanRedirect.targetUrl.uri).toEqual(uri);
-    expect(cleanRedirect.targetUrl.url).toEqual(expectedUrl);
-    expect(cleanRedirect.requiresRedirect()).toEqual(true);
-    expect(cleanRedirect.getRedirectUrl()).toEqual(expectedRedirectUrl);
-  });
-
-  test('With alwaysPassFullUrl set to true and toLowerCase, the path is lower case, URL is full, without query string and hash, redirect is necessary, etc.', () => {
+  test('With alwaysPassFullUrl set to true and toLowerCase, the path is lower case, URL is full, without query string, redirect is necessary, etc.', () => {
     const cleanRedirect = new CleanRedirect({ protocol, hostname, uri: uriUpperCase }, { alwaysPassFullUrl: true, pathToLowerCase: true });
-    const expectedUrl = `${protocol}://${hostname}${path}${queryString}${hash}`;
+    const expectedUrl = `${protocol}://${hostname}${path}${queryString}`;
     const expectedRedirectUrl = `${protocol}://${hostname}${path}`;
 
     expect(cleanRedirect.targetUrl.protocol).toEqual(protocol);
     expect(cleanRedirect.targetUrl.hostname).toEqual(hostname);
     expect(cleanRedirect.targetUrl.path).toEqual(path);
     expect(cleanRedirect.targetUrl.queryString).toEqual(queryString);
-    expect(cleanRedirect.targetUrl.hash).toEqual(hash);
     expect(cleanRedirect.targetUrl.uri).toEqual(uri);
     expect(cleanRedirect.targetUrl.url).toEqual(expectedUrl);
     expect(cleanRedirect.requiresRedirect()).toEqual(true);
     expect(cleanRedirect.getRedirectUrl()).toEqual(expectedRedirectUrl);
   });
 
-  test('With alwaysPassFullUrl, toLowerCase, persistHash, persistQueryString, the path is lower case, URL is full, with query string and hash, redirect is necessary, etc.', () => {
-    const cleanRedirect = new CleanRedirect({ protocol, hostname, uri: uriUpperCase }, { alwaysPassFullUrl: true, pathToLowerCase: true, persistQueryString: true, persistHash: true });
-    const expectedUrl = `${protocol}://${hostname}${path}${queryString}${hash}`;
-    const expectedRedirectUrl = `${protocol}://${hostname}${path}${queryString}${hash}`;
+  test('With alwaysPassFullUrl, toLowerCase, persistQueryString, the path is lower case, URL is full, with query string, redirect is necessary, etc.', () => {
+    const cleanRedirect = new CleanRedirect({ protocol, hostname, uri: uriUpperCase }, { alwaysPassFullUrl: true, pathToLowerCase: true, persistQueryString: true });
+    const expectedUrl = `${protocol}://${hostname}${path}${queryString}`;
+    const expectedRedirectUrl = `${protocol}://${hostname}${path}${queryString}`;
 
     expect(cleanRedirect.targetUrl.protocol).toEqual(protocol);
     expect(cleanRedirect.targetUrl.hostname).toEqual(hostname);
     expect(cleanRedirect.targetUrl.path).toEqual(path);
     expect(cleanRedirect.targetUrl.queryString).toEqual(queryString);
-    expect(cleanRedirect.targetUrl.hash).toEqual(hash);
     expect(cleanRedirect.targetUrl.uri).toEqual(uri);
     expect(cleanRedirect.targetUrl.url).toEqual(expectedUrl);
     expect(cleanRedirect.requiresRedirect()).toEqual(true);
@@ -323,15 +275,13 @@ describe('CleanRedirect – Parsers work correctly based on passed options', () 
       pathToLowerCase: true,
       removeTrailingSlash: true,
       persistQueryString: true,
-      persistHash: true,
     });
-    const expectedUrl = `https://${hostnameNoWww}${path}${queryString}${hash}`;
+    const expectedUrl = `https://${hostnameNoWww}${path}${queryString}`;
 
     expect(cleanRedirect.targetUrl.protocol).toEqual('https');
     expect(cleanRedirect.targetUrl.hostname).toEqual(hostnameNoWww);
     expect(cleanRedirect.targetUrl.path).toEqual(path);
     expect(cleanRedirect.targetUrl.queryString).toEqual(queryString);
-    expect(cleanRedirect.targetUrl.hash).toEqual(hash);
     expect(cleanRedirect.targetUrl.uri).toEqual(uri);
     expect(cleanRedirect.targetUrl.url).toEqual(expectedUrl);
     expect(cleanRedirect.requiresRedirect()).toEqual(true);
@@ -347,18 +297,20 @@ describe('CleanRedirect – Getter methods work correctly', () => {
       pathToLowerCase: true,
       removeTrailingSlash: true,
       persistQueryString: true,
-      persistHash: true,
     });
+
+    cleanRedirect.setHash(hash);
 
     expect(cleanRedirect.protocol).toEqual(cleanRedirect.targetUrl.protocol);
     expect(cleanRedirect.hostname).toEqual(cleanRedirect.targetUrl.hostname);
     expect(cleanRedirect.path).toEqual(cleanRedirect.targetUrl.path);
     expect(cleanRedirect.queryString).toEqual(cleanRedirect.targetUrl.queryString);
     expect(cleanRedirect.hash).toEqual(cleanRedirect.targetUrl.hash);
+
   });
 
   test('Getter for redirect type returns redirect type in config object', () => {
-    const cleanRedirect = new CleanRedirect({ protocol, hostname, uri }, {redirectType: 302});
+    const cleanRedirect = new CleanRedirect({ protocol, hostname, uri }, { redirectType: 302 });
 
     expect(cleanRedirect.redirectType).toEqual(302);
     expect(cleanRedirect.redirectType).toEqual(cleanRedirect.config.redirectType);
@@ -367,7 +319,7 @@ describe('CleanRedirect – Getter methods work correctly', () => {
 
 describe('CleanRedirect – Setter methods work correctly', () => {
   test('Setters for URL parts set the values of the targetUrl object', () => {
-    const cleanRedirect = new CleanRedirect({ protocol, hostname, uri }, { persistQueryString: true, persistHash: true });
+    const cleanRedirect = new CleanRedirect({ protocol, hostname, uri }, { persistQueryString: true });
 
     cleanRedirect.setProtocol('voting');
 
@@ -399,10 +351,6 @@ describe('CleanRedirect – Setter methods work correctly', () => {
     cleanRedirect.setPersistQueryString(true);
 
     expect(cleanRedirect.config.persistQueryString).toEqual(true);
-
-    cleanRedirect.setPersistHash(true);
-
-    expect(cleanRedirect.config.persistHash).toEqual(true);
 
     cleanRedirect.setRedirectType(301);
 
