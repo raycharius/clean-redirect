@@ -85,9 +85,14 @@ app.use(redirector);
 Using this configuration, you get: 
 
 **Original URL:**   http://yourapp.com/SUBSCRIBE/?email=johndoe@gmail.com
+
 **Target URL:**     https://www.yourapp.com/subscribe?email=johndoe@gmail.com
+
 **Redirect Code:**  301
 
+
 **Original URL:**   http://yourapp.com/STORE/?showBundles=true
+
 **Target URL:**     https://www.yourapp.com/marketplace
+
 **Redirect Code:**  302
