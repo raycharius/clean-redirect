@@ -63,7 +63,7 @@ const getCustomRedirectLocation = (req, res, redirector) => {
     redirector
       .setPath('/marketplace')
       .setPersistQueryString(false)
-      .setRedirectType(302);
+      .setRedirectCode(302);
   }
 };
 
@@ -75,7 +75,7 @@ const redirector = cleanRedirect({
   persistQueryString: true,
   customRedirects: getCustomRedirectLocation,
   callNextOnRedirect: true,
-  redirectType: 301,
+  redirectCode: 301,
 });
 
 app.use(redirector);
