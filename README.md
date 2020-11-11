@@ -20,6 +20,8 @@
 
 ***
 
+[![npm](https://img.shields.io/npm/v/clean-redirect?color=bright-green)](https://www.npmjs.com/package/clean-redirect)
+![NPM](https://img.shields.io/npm/l/clean-redirect?color=bright-green)
 [![codecov](https://codecov.io/gh/raycharius/clean-redirect/branch/main/graph/badge.svg)](https://codecov.io/gh/raycharius/clean-redirect)
 [![Maintainability](https://api.codeclimate.com/v1/badges/a9aecc5560c08e013ec8/maintainability)](https://codeclimate.com/github/raycharius/clean-redirect/maintainability)
 
