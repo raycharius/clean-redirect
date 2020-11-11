@@ -16,7 +16,6 @@ class CleanRedirect {
       pathToLowerCase: config.pathToLowerCase || false,
       removeTrailingSlash: config.removeTrailingSlash || false,
       persistQueryString: config.persistQueryString || false,
-      persistHash: config.persistHash || false,
       alwaysPassFullUrl: config.alwaysPassFullUrl || false,
       redirectType: config.redirectType || 302,
     };
@@ -83,17 +82,13 @@ class CleanRedirect {
     }
 
     if (this.config.alwaysPassFullUrl) {
-      return this.targetUrl.generateUrl({
-        includeQueryString: this.config.persistQueryString,
-        includeHash: this.config.persistHash,
-      });
+      return this.targetUrl.generateUrl({ includeQueryString: this.config.persistQueryString });
     }
 
     return this.targetUrl.generateUrl({
       includeProtocol: this.sourceUrl.protocol !== this.targetUrl.protocol,
       includeHostname: this.sourceUrl.hostname !== this.targetUrl.hostname,
       includeQueryString: this.config.persistQueryString,
-      includeHash: this.config.persistHash,
     });
   }
 
@@ -155,12 +150,6 @@ class CleanRedirect {
     validator.validateIsBoolean(bool);
 
     return this.setConfigProperty(props.persistQueryString, bool);
-  }
-
-  setPersistHash(bool) {
-    validator.validateIsBoolean(bool);
-
-    return this.setConfigProperty(props.persistHash, bool);
   }
 
   setRedirectType(code) {
