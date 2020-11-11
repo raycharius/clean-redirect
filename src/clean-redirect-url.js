@@ -9,10 +9,11 @@ const {
 } = require('./constants');
 
 class CleanRedirectUrl {
-  constructor({ protocol, hostname, uri }) {
-    this.protocol = protocol;
-    this.hostname = hostname;
-    this.uri = uri;
+  constructor(urlData) {
+    validator.validateCleanRedirectUrlArgs(urlData);
+    this.protocol = urlData.protocol;
+    this.hostname = urlData.hostname;
+    this.uri = urlData.uri;
     this.path = this.parsePath();
     this.queryString = this.parseQueryString();
     this.hash = this.parseHash();
@@ -71,7 +72,6 @@ class CleanRedirectUrl {
       includeProtocol = true,
       includeHostname = true,
       includeQueryString = true,
-      includeHash = true,
     } = config;
     const urlParts = [];
 
@@ -89,9 +89,7 @@ class CleanRedirectUrl {
       urlParts.push(this.queryString);
     }
 
-    if (includeHash) {
-      urlParts.push(this.hash);
-    }
+    urlParts.push(this.hash);
 
     return urlParts.join('');
   }
