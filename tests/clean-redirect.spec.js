@@ -45,7 +45,7 @@ describe('CleanRedirect – Instantiation works correctly', () => {
     expect(cleanRedirect.config.removeTrailingSlash).toEqual(false);
     expect(cleanRedirect.config.persistQueryString).toEqual(false);
     expect(cleanRedirect.config.alwaysPassFullUrl).toEqual(false);
-    expect(cleanRedirect.config.redirectType).toEqual(302);
+    expect(cleanRedirect.config.redirectCode).toEqual(302);
   });
 
   test('Instantiation with all options set to false sets options to false, with redirect type of 302', () => {
@@ -66,7 +66,7 @@ describe('CleanRedirect – Instantiation works correctly', () => {
     expect(cleanRedirect.config.removeTrailingSlash).toEqual(false);
     expect(cleanRedirect.config.persistQueryString).toEqual(false);
     expect(cleanRedirect.config.alwaysPassFullUrl).toEqual(false);
-    expect(cleanRedirect.config.redirectType).toEqual(302);
+    expect(cleanRedirect.config.redirectCode).toEqual(302);
   });
 
   test('Instantiation with all options set to true sets options to true (except toWww), with redirect type of 302', () => {
@@ -87,7 +87,7 @@ describe('CleanRedirect – Instantiation works correctly', () => {
     expect(cleanRedirect.config.removeTrailingSlash).toEqual(true);
     expect(cleanRedirect.config.persistQueryString).toEqual(true);
     expect(cleanRedirect.config.alwaysPassFullUrl).toEqual(true);
-    expect(cleanRedirect.config.redirectType).toEqual(302);
+    expect(cleanRedirect.config.redirectCode).toEqual(302);
   });
 
   test('Instantiation with toWww set to true results in a value of true', () => {
@@ -104,20 +104,20 @@ describe('CleanRedirect – Instantiation works correctly', () => {
     expect(() => new CleanRedirect({ protocol, hostname, uri }, { toNaked: 'invalid' })).toThrow();
   });
 
-  test('Instantiation with redirectType set to 302 results in a 302 redirectType', () => {
-    const cleanRedirect = new CleanRedirect({ protocol, hostname, uri }, { redirectType: 302 });
+  test('Instantiation with redirectCode set to 302 results in a 302 redirectCode', () => {
+    const cleanRedirect = new CleanRedirect({ protocol, hostname, uri }, { redirectCode: 302 });
 
-    expect(cleanRedirect.config.redirectType).toEqual(302);
+    expect(cleanRedirect.config.redirectCode).toEqual(302);
   });
 
-  test('Instantiation with redirectType set to 301 results in a 301 redirectType', () => {
-    const cleanRedirect = new CleanRedirect({ protocol, hostname, uri }, { redirectType: 301 });
+  test('Instantiation with redirectCode set to 301 results in a 301 redirectCode', () => {
+    const cleanRedirect = new CleanRedirect({ protocol, hostname, uri }, { redirectCode: 301 });
 
-    expect(cleanRedirect.config.redirectType).toEqual(301);
+    expect(cleanRedirect.config.redirectCode).toEqual(301);
   });
 
-  test('Instantiation with redirectType set to something other than 301 or 302 results in an error being thrown', () => {
-    expect(() => new CleanRedirect({ protocol, hostname, uri }, { redirectType: 'invalid' })).toThrow();
+  test('Instantiation with redirectCode set to something other than 301 or 302 results in an error being thrown', () => {
+    expect(() => new CleanRedirect({ protocol, hostname, uri }, { redirectCode: 'invalid' })).toThrow();
   });
 });
 
@@ -310,10 +310,10 @@ describe('CleanRedirect – Getter methods work correctly', () => {
   });
 
   test('Getter for redirect type returns redirect type in config object', () => {
-    const cleanRedirect = new CleanRedirect({ protocol, hostname, uri }, { redirectType: 302 });
+    const cleanRedirect = new CleanRedirect({ protocol, hostname, uri }, { redirectCode: 302 });
 
-    expect(cleanRedirect.redirectType).toEqual(302);
-    expect(cleanRedirect.redirectType).toEqual(cleanRedirect.config.redirectType);
+    expect(cleanRedirect.redirectCode).toEqual(302);
+    expect(cleanRedirect.redirectCode).toEqual(cleanRedirect.config.redirectCode);
   });
 });
 
@@ -352,9 +352,9 @@ describe('CleanRedirect – Setter methods work correctly', () => {
 
     expect(cleanRedirect.config.persistQueryString).toEqual(true);
 
-    cleanRedirect.setRedirectType(301);
+    cleanRedirect.setRedirectCode(301);
 
-    expect(cleanRedirect.config.redirectType).toEqual(301);
+    expect(cleanRedirect.config.redirectCode).toEqual(301);
 
     cleanRedirect.setPathOverride('..');
 

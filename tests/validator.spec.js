@@ -2,10 +2,10 @@ const validator = require('../src/validator');
 
 describe('Validators – Check that function properly', () => {
   test('validateCleanRedirectConfig', () => {
-    expect(() => validator.validateCleanRedirectConfig({ toWww: true, toNaked: true, redirectType: 301 })).toThrow();
-    expect(() => validator.validateCleanRedirectConfig({ toWww: true, toNaked: false, redirectType: 303 })).toThrow();
+    expect(() => validator.validateCleanRedirectConfig({ toWww: true, toNaked: true, redirectCode: 301 })).toThrow();
+    expect(() => validator.validateCleanRedirectConfig({ toWww: true, toNaked: false, redirectCode: 303 })).toThrow();
 
-    validator.validateCleanRedirectConfig({ toWww: true, toNaked: false, redirectType: 301 });
+    validator.validateCleanRedirectConfig({ toWww: true, toNaked: false, redirectCode: 301 });
   });
 
   test('validateRedirectCode', () => {
