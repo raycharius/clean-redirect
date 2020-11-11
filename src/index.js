@@ -25,11 +25,11 @@ module.exports = (options) => (req, res, next) => {
     return next();
   }
 
-  if (cleanRedirect.requiresRedirect) {
+  if (cleanRedirect.requiresRedirect()) {
     res.redirect(cleanRedirect.redirectType, cleanRedirect.getRedirectUrl());
   }
 
-  if (callNextOnRedirect || !cleanRedirect.requiresRedirect) {
+  if (callNextOnRedirect || !cleanRedirect.requiresRedirect()) {
     return next();
   }
 };
