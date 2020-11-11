@@ -8,7 +8,7 @@ module.exports = (options) => (req, res, next) => {
     customRedirects = null,
     ...config
   } = options;
-
+  
   const cleanRedirect = new CleanRedirect({
     protocol: req.protocol,
     hostname: req.get(host),
