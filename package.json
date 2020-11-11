@@ -1,18 +1,18 @@
 {
   "name": "clean-redirect",
-  "version": "0.0.0",
-  "description": "All your redirect logic wrapped into one single redirect in Express. Including, enforce HTTPS, www to naked domain and vice versa, remove trailing slash, to lower case, and your own custom redirect logic.",
+  "version": "0.1.0",
+  "description": "Enforce HTTPS, www to naked domains, remove trailing slash, to lower case, and your own custom redirect logic, all in one single redirect.",
   "author": {
     "name": "Ray East",
     "url": "https://github.com/raycharius"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/raycharius/express-clean-redirect"
+    "url": "https://github.com/raycharius/clean-redirect"
   },
-  "homepage": "https://github.com/raycharius/express-clean-redirect",
+  "homepage": "https://github.com/raycharius/clean-redirect",
   "bugs": {
-    "url": "https://github.com/raycharius/express-clean-redirect/issues"
+    "url": "https://github.com/raycharius/clean-redirect/issues"
   },
   "files": [
     "src/",
@@ -30,12 +30,15 @@
     "url",
     "redirects",
     "enforce",
+    "force",
     "trailing",
     "slash",
     "naked",
     "domain",
     "www",
-    "subdomain"
+    "subdomain",
+    "chain",
+    "middleware"
   ],
   "scripts": {
     "test": "jest",
