@@ -49,3 +49,39 @@ npm install --save clean-redirect
 ``` bash
 yarn add clean-redirect
 ```
+### :mag: &nbsp; Example
+
+```javascript
+
+const express = require('express');
+const cleanRedirect = require('clean-redirect');
+
+const app = express();
+
+const getCustomRedirectLocation = (res, req, redirector) => {
+  if (redirector.path === '/store') {
+    redirector
+      .setPath('/marketplace')
+      .setPersistQueryString(false)
+      .setRedirectType(302);
+  }
+};
+
+const redirector = cleanRedirect({
+  forceHttps: true,
+  toWww: true,
+  pathToLowerCase: true,
+  removeTrailingSlash: true,
+  persistQueryString: true,
+  customRedirects: getCustomRedirectLocation,
+  callNextOnRedirect: true,
+  redirectType: 301,
+});
+
+app.use(redirector);
+
+// 301 http://yourapp.com/SUBSCRIBE/?email=johndoe@gmail.com => https://www.yourapp.com/subscribe?email=johndoe@gmail.com
+
+// 302 http://yourapp.com/STORE/?showBundles=true => https://www.yourapp.com/marketplace
+
+```
