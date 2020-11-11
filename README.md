@@ -10,9 +10,6 @@
     Force HTTPS, remove trailing slash, to lower case, naked to www, and your own custom logic, as one redirect.
     <br />
     <br />
-    <a href="#reference" target="_blank"><strong>View the Docs »</strong></a>
-    <br />
-    <br />
     <a href="#usage">Quick Start Guide</a>
     ·
     <a href="https://github.com/raycharius/clean-redirect/issues">Request Feature</a>
@@ -20,7 +17,12 @@
     <a href="https://github.com/raycharius/clean-redirect/issues">Report Bug</a>
   </p>
 </p>
- 
+
+***
+
+[![codecov](https://codecov.io/gh/raycharius/clean-redirect/branch/main/graph/badge.svg)](https://codecov.io/gh/raycharius/slack-block-builder)
+[![Maintainability](https://api.codeclimate.com/v1/badges/17a96b146284b1b82b9e/maintainability)](https://codeclimate.com/github/raycharius/slack-block-builder/maintainability)
+
 * Enforce HTTPS.
 * Naked domain to WWW and vice versa.
 * Remove trailing slash
