@@ -58,7 +58,7 @@ const cleanRedirect = require('clean-redirect');
 
 const app = express();
 
-const getCustomRedirectLocation = (res, req, redirector) => {
+const getCustomRedirectLocation = (req, res, redirector) => {
   if (redirector.path === '/store') {
     redirector
       .setPath('/marketplace')
