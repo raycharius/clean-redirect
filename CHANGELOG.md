@@ -4,4 +4,4 @@
 
 * Initial Beta Release
 
-:warning: Clean Redirect is still being tested and documented. More soon!
+NOTE: Clean Redirect is still being tested and documented. More soon!
