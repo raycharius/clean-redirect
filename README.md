@@ -21,7 +21,7 @@
 ***
 
 [![codecov](https://codecov.io/gh/raycharius/clean-redirect/branch/main/graph/badge.svg)](https://codecov.io/gh/raycharius/clean-redirect)
-[![Maintainability](https://api.codeclimate.com/v1/badges/17a96b146284b1b82b9e/maintainability)](https://codeclimate.com/github/raycharius/clean-redirect/maintainability)
+[![Maintainability](https://api.codeclimate.com/v1/badges/a9aecc5560c08e013ec8/maintainability)](https://codeclimate.com/github/raycharius/clean-redirect/maintainability)
 
 * Enforce HTTPS.
 * Naked domain to WWW and vice versa.
