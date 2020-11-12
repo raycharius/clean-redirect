@@ -1,5 +1,5 @@
 const CleanRedirect = require('./clean-redirect');
-const { host } = require('./constants');
+const { host, http, https } = require('./constants');
 
 module.exports = (options) => (req, res, next) => {
   const {
@@ -10,7 +10,7 @@ module.exports = (options) => (req, res, next) => {
   } = options;
 
   const cleanRedirect = new CleanRedirect({
-    protocol: req.protocol,
+    protocol: !req.secure && req.get('x-forwarded-proto').toLowerCase() !== https ? http : https,
     hostname: req.get(host),
     uri: req.originalUrl,
   }, config);

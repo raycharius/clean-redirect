@@ -2,6 +2,7 @@ module.exports = {
   www: 'www.',
   slash: '/',
   blankString: '',
+  http: 'http',
   https: 'https',
   host: 'host',
   questionMark: '?',
