@@ -3,7 +3,7 @@
 </p>
 
 <p align="center">
-    <h3 align="center">All your redirect logic wrapped into one clean redirect</h3>
+    <h3 align="center">All your redirect logic wrapped into one single redirect</h3>
 </p>
 
 <p align="center">
