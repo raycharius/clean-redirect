@@ -31,7 +31,7 @@ When it comes to redirects, it's easy to end up with a redirect chain. First you
 
 While it may be desirable to keep some of those redirects (such as force HTTPS) on the web server, there are cases when they need to happen on the backend, such as when hosting an application on Heroku or similar infrastructure.
 
-### :zap: &nbsp; Features
+## :zap: &nbsp; Features
 
 * Enforce HTTPS.
 * Redirect from naked domain to WWW and vice versa.
@@ -40,7 +40,7 @@ While it may be desirable to keep some of those redirects (such as force HTTPS) 
 * The ability to pass in a function with your own business logic.
 * A lot of configurable options to keep it as simple or governed as you need it.
 
-### :floppy_disk: &nbsp; Installation 
+## :floppy_disk: &nbsp; Installation 
 
 #### Using NPM: 
 
@@ -53,7 +53,7 @@ npm install --save clean-redirect
 ``` bash
 yarn add clean-redirect
 ```
-### :mag: &nbsp; Example
+## :mag: &nbsp; Example
 
 ```javascript
 
@@ -92,7 +92,7 @@ app.use(redirector);
 
 ```
 
-### :space_invader: &nbsp; Usage
+## :space_invader: &nbsp; Usage
 
 Clean Redirect exposes a single middleware function that accepts multiple options, some of which are used to configure the redirect logic, others which are used to govern the behavior of the middleware.
 
