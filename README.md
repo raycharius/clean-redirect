@@ -113,6 +113,10 @@ Clean Redirect exposes a single middleware function that accepts multiple option
 
 Ideally, this middleware should come before any other redirect-related logic, globally, using the `app.use()` method. However, you can also pass different configurations into different areas of your application.
 
-### :black_nib: &nbsp; Author
+## :fire: &nbsp; Acknowledgements
+
+<img src="https://cdn.dribbble.com/users/683635/avatars/normal/ee2c7c826bfe244b573d145376fe0b5a.png?1510328842" alt="@ft502" width="24" height="24" valign="bottom" /> Alexey Chernyshov ([@ft502](https://dribbble.com/ft502) on Dribbble) - For such a beautiful logo!
+
+## :black_nib: &nbsp; Author
 
 <img src="https://github.com/raycharius.png" alt="@raycharius" width="24" height="24" valign="bottom" /> Ray East ([@raycharius](https://github.com/raycharius)) - Technical Product Manager by Day, NodeJS Developer by Night
