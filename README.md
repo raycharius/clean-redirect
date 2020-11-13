@@ -112,3 +112,7 @@ Clean Redirect exposes a single middleware function that accepts multiple option
 | `customRedirects`     | Function | No       | This is a function that accepts three arguments (`req`, `res`, `redirector`) and is called before calling `res.redirect()`. Pass this in to include custom redirect logic using conditions, getters, and setters. |
 
 Ideally, this middleware should come before any other redirect-related logic, globally, using the `app.use()` method. However, you can also pass different configurations into different areas of your application.
+
+## :black_nib: &nbsp; Author
+
+<img src="https://github.com/raycharius.png" alt="@raycharius" width="24" height="24" valign="bottom" /> Ray East ([@raycharius](https://github.com/raycharius)) - Technical Product Manager by Day, NodeJS Developer by Night
