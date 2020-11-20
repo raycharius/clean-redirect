@@ -1,6 +1,6 @@
 {
   "name": "clean-redirect",
-  "version": "0.1.1",
+  "version": "1.0.0",
   "description": "Enforce HTTPS, www to naked domains, remove trailing slash, to lower case, and your own custom redirect logic, all in one single redirect.",
   "author": {
     "name": "Ray East",
