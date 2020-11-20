@@ -20,6 +20,10 @@ class CleanRedirectUrl {
     this.url = this.generateUrl();
   }
 
+  /**
+   * @private
+   */
+
   parsePath() {
     const startQueryStringIndex = this.uri.indexOf(questionMark);
     const startHashIndex = this.uri.indexOf(hash);
@@ -32,6 +36,10 @@ class CleanRedirectUrl {
 
     return hasHash ? this.uri.split(hash).shift() : this.uri;
   }
+
+  /**
+   * @private
+   */
 
   parseQueryString() {
     const startQueryStringIndex = this.uri.indexOf(questionMark);

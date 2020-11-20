@@ -72,11 +72,19 @@ class CleanRedirect {
     return targetPath;
   }
 
-  requiresRedirect() {
+  /**
+   * @type {boolean}
+   */
+
+  get requiresRedirect() {
     return this.sourceUrl.url !== this.targetUrl.url || Boolean(this.pathOverride);
   }
 
-  getRedirectUrl() {
+  /**
+   * @type {string}
+   */
+
+  get redirectUrl() {
     if (this.pathOverride) {
       return this.pathOverride;
     }
@@ -92,29 +100,58 @@ class CleanRedirect {
     });
   }
 
+  /**
+   * @type {string}
+   */
+
   get protocol() {
     return this.targetUrl.protocol;
   }
+
+  /**
+   * @type {string}
+   */
 
   get hostname() {
     return this.targetUrl.hostname;
   }
 
+  /**
+   * @type {string}
+   */
+
   get path() {
     return this.targetUrl.path;
   }
+
+  /**
+   * @type {string}
+   */
 
   get queryString() {
     return this.targetUrl.queryString;
   }
 
+  /**
+   * @type {string}
+   */
+
   get hash() {
     return this.targetUrl.hash;
   }
 
+  /**
+   * @type {number}
+   */
+
   get redirectCode() {
     return this.config.redirectCode;
   }
+
+  /**
+   * @param {string} protocol
+   * @return {this}
+   */
 
   setProtocol(protocol) {
     this.targetUrl.setProtocol(protocol);
@@ -122,11 +159,21 @@ class CleanRedirect {
     return this;
   }
 
+  /**
+   * @param {string} hostname
+   * @return {this}
+   */
+
   setHostname(hostname) {
     this.targetUrl.setHostname(hostname);
 
     return this;
   }
+
+  /**
+   * @param {string} path
+   * @return {this}
+   */
 
   setPath(path) {
     this.targetUrl.setPath(path);
@@ -134,11 +181,21 @@ class CleanRedirect {
     return this;
   }
 
+  /**
+   * @param {string} queryString
+   * @return {this}
+   */
+
   setQueryString(queryString) {
     this.targetUrl.setQueryString(queryString);
 
     return this;
   }
+
+  /**
+   * @param {string} hash
+   * @return {this}
+   */
 
   setHash(hash) {
     this.targetUrl.setHash(hash);
@@ -146,17 +203,32 @@ class CleanRedirect {
     return this;
   }
 
+  /**
+   * @param {string} bool
+   * @return {this}
+   */
+
   setPersistQueryString(bool) {
     validator.validateIsBoolean(bool);
 
     return this.setConfigProperty(props.persistQueryString, bool);
   }
 
+  /**
+   * @param {number} code
+   * @return {this}
+   */
+
   setRedirectCode(code) {
     validator.validateRedirectCode(code);
 
     return this.setConfigProperty(props.redirectCode, code);
   }
+
+  /**
+   * @param {string} path
+   * @return {this}
+   */
 
   setPathOverride(path) {
     validator.validateIsString(path);
