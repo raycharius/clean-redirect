@@ -94,7 +94,7 @@ app.use(redirector);
 
 ## :space_invader: &nbsp; Usage
 
-Clean Redirect exposes a single middleware function that accepts multiple options, some of which are used to configure the redirect logic, others which are used to govern the behavior of the middleware.
+**Clean Redirect** exposes a single middleware function that accepts multiple options, some of which are used to configure the redirect logic, others which are used to govern the behavior of the middleware.
 
 ### Options 
 
