@@ -96,7 +96,7 @@ app.use(redirector);
 
 Clean Redirect exposes a single middleware function that accepts multiple options, some of which are used to configure the redirect logic, others which are used to govern the behavior of the middleware.
 
-#### Options 
+### Options 
 
 | Option                | Type     | Required | Description                                                                                                                                                                                                       |
 |-----------------------|----------|----------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -113,7 +113,7 @@ Clean Redirect exposes a single middleware function that accepts multiple option
 
 Ideally, this middleware should come before any other redirect-related logic, globally, using the `app.use()` method. However, you can also pass different configurations into different areas of your application.
 
-#### Methods for `CleanRedirect`
+### Methods for `CleanRedirect`
 
 There are two cases in which there is direct access to the object (an instance of `CleanRedirect`) that stores all the original and target URL data:
 
@@ -122,7 +122,7 @@ There are two cases in which there is direct access to the object (an instance o
 
 In these situations, there are getters and setters available to further modify the configuration of the redirect and values of the target URL which will be passed into the `res.redirect()` method:
 
-Getters
+#### Getters
 
 | Name                  | Type     | Description                                                                                                                                                                                                       |
 |-----------------------|----------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
