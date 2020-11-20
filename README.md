@@ -10,7 +10,7 @@
     Force HTTPS, remove trailing slash, to lower case, naked to www, and your own custom logic, as one redirect.
     <br />
     <br />
-    <a href="#space_invader--usage">Get Started</a>
+    <a href="#floppy_disk--installation">Get Started</a>
     ·
     <a href="https://github.com/raycharius/clean-redirect/issues">Request Feature</a>
     ·
