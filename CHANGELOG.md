@@ -5,7 +5,6 @@
 * Stable release. 
 * Update documentation in README.md
 * Add JSDoc documentation to source code.
-* Update
 
 ## v0.1.1 - 2020-11-12
 
