@@ -144,8 +144,8 @@ describe('CleanRedirect – Parsers work correctly based on passed options', () 
     expect(cleanRedirect.targetUrl.queryString).toEqual(queryString);
     expect(cleanRedirect.targetUrl.uri).toEqual(uri);
     expect(cleanRedirect.targetUrl.url).toEqual(expectedUrl);
-    expect(cleanRedirect.requiresRedirect()).toEqual(true);
-    expect(cleanRedirect.getRedirectUrl()).toEqual(expectedRedirectUrl);
+    expect(cleanRedirect.requiresRedirect).toEqual(true);
+    expect(cleanRedirect.redirectUrl).toEqual(expectedRedirectUrl);
   });
 
   test('With toWww set to true, a hostname value starting without www. is mutated into hostname with www, redirect is necessary, etc.', () => {
@@ -159,8 +159,8 @@ describe('CleanRedirect – Parsers work correctly based on passed options', () 
     expect(cleanRedirect.targetUrl.queryString).toEqual(queryString);
     expect(cleanRedirect.targetUrl.uri).toEqual(uri);
     expect(cleanRedirect.targetUrl.url).toEqual(expectedUrl);
-    expect(cleanRedirect.requiresRedirect()).toEqual(true);
-    expect(cleanRedirect.getRedirectUrl()).toEqual(expectedRedirectUrl);
+    expect(cleanRedirect.requiresRedirect).toEqual(true);
+    expect(cleanRedirect.redirectUrl).toEqual(expectedRedirectUrl);
   });
 
   test('With toNaked set to true, a hostname value starting with www. is mutated into hostname without www, redirect is necessary, etc.', () => {
@@ -174,8 +174,8 @@ describe('CleanRedirect – Parsers work correctly based on passed options', () 
     expect(cleanRedirect.targetUrl.queryString).toEqual(queryString);
     expect(cleanRedirect.targetUrl.uri).toEqual(uri);
     expect(cleanRedirect.targetUrl.url).toEqual(expectedUrl);
-    expect(cleanRedirect.requiresRedirect()).toEqual(true);
-    expect(cleanRedirect.getRedirectUrl()).toEqual(expectedRedirectUrl);
+    expect(cleanRedirect.requiresRedirect).toEqual(true);
+    expect(cleanRedirect.redirectUrl).toEqual(expectedRedirectUrl);
   });
 
   test('With removeTrailingSlash set to true, a path with a trailing slash is mutated into path without one, redirect is necessary, etc.', () => {
@@ -189,8 +189,8 @@ describe('CleanRedirect – Parsers work correctly based on passed options', () 
     expect(cleanRedirect.targetUrl.queryString).toEqual(queryString);
     expect(cleanRedirect.targetUrl.uri).toEqual(uri);
     expect(cleanRedirect.targetUrl.url).toEqual(expectedUrl);
-    expect(cleanRedirect.requiresRedirect()).toEqual(true);
-    expect(cleanRedirect.getRedirectUrl()).toEqual(expectedRedirectUrl);
+    expect(cleanRedirect.requiresRedirect).toEqual(true);
+    expect(cleanRedirect.redirectUrl).toEqual(expectedRedirectUrl);
   });
 
   test('With pathToLowerCase set to true, a path with a upper case letters is mutated into path without them, redirect is necessary, etc.', () => {
@@ -204,8 +204,8 @@ describe('CleanRedirect – Parsers work correctly based on passed options', () 
     expect(cleanRedirect.targetUrl.queryString).toEqual(queryString);
     expect(cleanRedirect.targetUrl.uri).toEqual(uri);
     expect(cleanRedirect.targetUrl.url).toEqual(expectedUrl);
-    expect(cleanRedirect.requiresRedirect()).toEqual(true);
-    expect(cleanRedirect.getRedirectUrl()).toEqual(expectedRedirectUrl);
+    expect(cleanRedirect.requiresRedirect).toEqual(true);
+    expect(cleanRedirect.redirectUrl).toEqual(expectedRedirectUrl);
   });
 
   test('With pathToLowerCase and removeTrailingSlash set to true, the path is lower case, without trailing slash, redirect is necessary, etc.', () => {
@@ -219,8 +219,8 @@ describe('CleanRedirect – Parsers work correctly based on passed options', () 
     expect(cleanRedirect.targetUrl.queryString).toEqual(queryString);
     expect(cleanRedirect.targetUrl.uri).toEqual(uri);
     expect(cleanRedirect.targetUrl.url).toEqual(expectedUrl);
-    expect(cleanRedirect.requiresRedirect()).toEqual(true);
-    expect(cleanRedirect.getRedirectUrl()).toEqual(expectedRedirectUrl);
+    expect(cleanRedirect.requiresRedirect).toEqual(true);
+    expect(cleanRedirect.redirectUrl).toEqual(expectedRedirectUrl);
   });
 
   test('With persistQueryString set to true and toLowerCase, the path is lower case, query string is available in redirect URL, redirect is necessary, etc.', () => {
@@ -234,8 +234,8 @@ describe('CleanRedirect – Parsers work correctly based on passed options', () 
     expect(cleanRedirect.targetUrl.queryString).toEqual(queryString);
     expect(cleanRedirect.targetUrl.uri).toEqual(uri);
     expect(cleanRedirect.targetUrl.url).toEqual(expectedUrl);
-    expect(cleanRedirect.requiresRedirect()).toEqual(true);
-    expect(cleanRedirect.getRedirectUrl()).toEqual(expectedRedirectUrl);
+    expect(cleanRedirect.requiresRedirect).toEqual(true);
+    expect(cleanRedirect.redirectUrl).toEqual(expectedRedirectUrl);
   });
 
   test('With alwaysPassFullUrl set to true and toLowerCase, the path is lower case, URL is full, without query string, redirect is necessary, etc.', () => {
@@ -249,8 +249,8 @@ describe('CleanRedirect – Parsers work correctly based on passed options', () 
     expect(cleanRedirect.targetUrl.queryString).toEqual(queryString);
     expect(cleanRedirect.targetUrl.uri).toEqual(uri);
     expect(cleanRedirect.targetUrl.url).toEqual(expectedUrl);
-    expect(cleanRedirect.requiresRedirect()).toEqual(true);
-    expect(cleanRedirect.getRedirectUrl()).toEqual(expectedRedirectUrl);
+    expect(cleanRedirect.requiresRedirect).toEqual(true);
+    expect(cleanRedirect.redirectUrl).toEqual(expectedRedirectUrl);
   });
 
   test('With alwaysPassFullUrl, toLowerCase, persistQueryString, the path is lower case, URL is full, with query string, redirect is necessary, etc.', () => {
@@ -264,8 +264,8 @@ describe('CleanRedirect – Parsers work correctly based on passed options', () 
     expect(cleanRedirect.targetUrl.queryString).toEqual(queryString);
     expect(cleanRedirect.targetUrl.uri).toEqual(uri);
     expect(cleanRedirect.targetUrl.url).toEqual(expectedUrl);
-    expect(cleanRedirect.requiresRedirect()).toEqual(true);
-    expect(cleanRedirect.getRedirectUrl()).toEqual(expectedRedirectUrl);
+    expect(cleanRedirect.requiresRedirect).toEqual(true);
+    expect(cleanRedirect.redirectUrl).toEqual(expectedRedirectUrl);
   });
 
   test('All URL settings set to true should result in correct path', () => {
@@ -284,8 +284,8 @@ describe('CleanRedirect – Parsers work correctly based on passed options', () 
     expect(cleanRedirect.targetUrl.queryString).toEqual(queryString);
     expect(cleanRedirect.targetUrl.uri).toEqual(uri);
     expect(cleanRedirect.targetUrl.url).toEqual(expectedUrl);
-    expect(cleanRedirect.requiresRedirect()).toEqual(true);
-    expect(cleanRedirect.getRedirectUrl()).toEqual(expectedUrl);
+    expect(cleanRedirect.requiresRedirect).toEqual(true);
+    expect(cleanRedirect.redirectUrl).toEqual(expectedUrl);
   });
 });
 
@@ -341,8 +341,8 @@ describe('CleanRedirect – Setter methods work correctly', () => {
 
     expect(cleanRedirect.targetUrl.hash).toEqual('#goamerica');
 
-    expect(cleanRedirect.requiresRedirect()).toEqual(true);
-    expect(cleanRedirect.getRedirectUrl()).toEqual('voting://usa-elections.com/the/path/to/redemption?year=2020#goamerica');
+    expect(cleanRedirect.requiresRedirect).toEqual(true);
+    expect(cleanRedirect.redirectUrl).toEqual('voting://usa-elections.com/the/path/to/redemption?year=2020#goamerica');
   });
 
   test('Setters for config object set the values correctly', () => {
@@ -367,7 +367,7 @@ describe('CleanRedirect – Setter methods work correctly', () => {
     cleanRedirect.setPathOverride('..');
 
     expect(cleanRedirect.pathOverride).toEqual('..');
-    expect(cleanRedirect.requiresRedirect()).toEqual(true);
-    expect(cleanRedirect.getRedirectUrl()).toEqual('..');
+    expect(cleanRedirect.requiresRedirect).toEqual(true);
+    expect(cleanRedirect.redirectUrl).toEqual('..');
   });
 });
