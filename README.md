@@ -120,7 +120,7 @@ There are two cases in which there is direct access to the object (an instance o
 * Within the function passed to the `customRedirects` option.
 * In later middleware, through the `res.locals.cleanRedirect` property, when passing a value of `true` to `deferRedirectToNext`.
 
-In these situations, there are getters and setters available to further modify the configuration of the redirect and values of the target URL which will be passed into the `res.redirect()` method:
+In these situations, there are getters and setters available to further modify the configuration of the redirect and values of the target URL which will be passed into the `res.redirect()` method.
 
 #### Getter Methods
 
