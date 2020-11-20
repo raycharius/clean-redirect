@@ -1,6 +1,11 @@
 # Change Log
 
-NOTE: Clean Redirect is still being tested and documented. More soon!
+## v1.0.0 - 2020-11-20
+
+* Stable release. 
+* Update documentation in README.md
+* Add JSDoc documentation to source code.
+* Update
 
 ## v0.1.1 - 2020-11-12
 
