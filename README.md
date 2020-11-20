@@ -146,9 +146,9 @@ All setter methods return `this` and are thus chainable.
 | `setPath(string)`                  | Set the target path.
 | `setQueryString(string)`           | Set the target queryString.
 | `setHash(string)`                  | Set the target hash.
-| `setPersistQueryString(boolean)`   | Sets the option to persist the query string on the target URL. 
-| `setRedirectCode(integer)`         | Sets the redirect code to be passed into the `res.redirect()` method.
-| `setPathOverride(string)`          | Sets an explicit value for the path passed into the `res.redirect()` method. Can be utilized to use the path relative and back redirects [supported by Express](https://expressjs.com/en/api.html#res.redirect). When set, all target URL data will be ignored, and the value passed as an override will be directly passed into `res.redirect()`.
+| `setPersistQueryString(boolean)`   | Set the option to persist the query string on the target URL. 
+| `setRedirectCode(integer)`         | Set the redirect code to be passed into the `res.redirect()` method.
+| `setPathOverride(string)`          | Set an explicit value for the path passed into the `res.redirect()` method. Can be utilized to use the path relative and back redirects [supported by Express](https://expressjs.com/en/api.html#res.redirect). When set, all target URL data will be ignored, and the value passed as an override will be directly passed into `res.redirect()`.
 
 ## :fire: &nbsp; Acknowledgements
 
