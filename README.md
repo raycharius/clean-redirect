@@ -25,8 +25,6 @@
 [![codecov](https://codecov.io/gh/raycharius/clean-redirect/branch/main/graph/badge.svg)](https://codecov.io/gh/raycharius/clean-redirect)
 [![Maintainability](https://api.codeclimate.com/v1/badges/a9aecc5560c08e013ec8/maintainability)](https://codeclimate.com/github/raycharius/clean-redirect/maintainability)
 
-> Note that this version is still being tested and documented. Stable version will be released as Version 1.0.0.
-
 When it comes to redirects, it's easy to end up with a redirect chain. First your server forces HTTPS. Redirects to the naked domain. Then removes the trailing slash. And only then does the request hit your backend, where it is met with redirects dependent on your business logic. **Clean Redirect** is a middleware for Express that helps you avoid redirect chains by keeping all of the redirect rules in one place, redirecting only once they've all been applied. 
 
 While it may be desirable to keep some of those redirects (such as force HTTPS) on the web server, there are cases when they need to happen on the backend, such as when hosting an application on Heroku or similar infrastructure.
