@@ -122,7 +122,7 @@ There are two cases in which there is direct access to the object (an instance o
 
 In these situations, there are getters and setters available to further modify the configuration of the redirect and values of the target URL which will be passed into the `res.redirect()` method:
 
-#### Getters
+#### Getter Methods
 
 | Name                  | Type     | Description                                                                                                                                                                                                       |
 |-----------------------|----------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -134,6 +134,21 @@ In these situations, there are getters and setters available to further modify t
 | `requiresRedirect`    | Boolean  | Compares the original URL data and the mutated values to decide if a redirect is needed or not. 
 | `redirectUrl`         | String   | Returns the full string that will be passed into the `res.redirect()` method.
 | `redirectCode`        | Integer  | Get the configured redirect code (301 or 302).
+
+#### Setter Methods
+
+All setter methods return `this` and are thus chainable.
+
+| Method                             | Description                                                                                                                                                                                                       |
+|------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `setProtocol(string)`              | Set the target protocol.
+| `setHostname(string)`              | Set the target hostname.
+| `setPath(string)`                  | Set the target path.
+| `setQueryString(string)`           | Set the target queryString.
+| `setHash(string)`                  | Set the target hash.
+| `setPersistQueryString(boolean)`   | Sets the option to persist the query string on the target URL. 
+| `setRedirectCode(integer)`         | Sets the redirect code to be passed into the `res.redirect()` method.
+| `setPathOverride(string)`          | Sets an explicit value for the path passed into the `res.redirect()` method. Can be utilized to use the path relative and back redirects [supported by Express](https://expressjs.com/en/api.html#res.redirect). When set, all target URL data will be ignored, and the value passed as an override will be directly passed into `res.redirect()`.
 
 ## :fire: &nbsp; Acknowledgements
 
