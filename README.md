@@ -98,8 +98,8 @@ Clean Redirect exposes a single middleware function that accepts multiple option
 
 #### Options 
 
-| Option              | Type     | Required | Description                                                                                                                                                                                                       |
-|---------------------|----------|----------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Option                | Type     | Required | Description                                                                                                                                                                                                       |
+|-----------------------|----------|----------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | `forceHttps`          | Boolean  | No       | Redirects non-secure HTTP requests to HTTPS. Defaults to `false`.                                                                                                                                                 |
 | `toWww`               | Boolean  | No       | Redirects requests to the naked (root) domain to the WWW domain. Defaults to  `false`. Both `toWww` and `toNaked` cannot set to `true` at the same time.                                                          |
 | `toNaked`             | Boolean  | No       | Redirects requests to the WWW domain to the naked (root) domain. Defaults to  `false`. Both `toWww` and `toNaked` cannot set to `true` at the same time.                                                          |
@@ -112,6 +112,28 @@ Clean Redirect exposes a single middleware function that accepts multiple option
 | `customRedirects`     | Function | No       | This is a function that accepts three arguments (`req`, `res`, `redirector`) and is called before calling `res.redirect()`. Pass this in to include custom redirect logic using conditions, getters, and setters. |
 
 Ideally, this middleware should come before any other redirect-related logic, globally, using the `app.use()` method. However, you can also pass different configurations into different areas of your application.
+
+#### Methods for `CleanRedirect`
+
+There are two cases in which there is direct access to the object (an instance of `CleanRedirect`) that stores all the original and target URL data:
+
+* Within the function passed to the `customRedirects` option.
+* In later middleware, through the `res.locals.cleanRedirect` property, when passing a value of `true` to `deferRedirectToNext`.
+
+In these situations, there are getters and setters available to further modify the configuration of the redirect and values of the target URL which will be passed into the `res.redirect()` method:
+
+Getters
+
+| Name                  | Type     | Description                                                                                                                                                                                                       |
+|-----------------------|----------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `protocol`            | String   | Get the target protocol.
+| `hostname`            | String   | Get the target hostname.
+| `path`                | String   | Get the target path.
+| `queryString`         | String   | Get the target queryString.
+| `hash`                | String   | Get the target hash.
+| `requiresRedirect`    | Boolean  | Compares the original URL data and the mutated values to decide if a redirect is needed or not. 
+| `redirectUrl`         | String   | Returns the full string that will be passed into the `res.redirect()` method.
+| `redirectCode`        | Integer  | Get the configured redirect code (301 or 302).
 
 ## :fire: &nbsp; Acknowledgements
 
