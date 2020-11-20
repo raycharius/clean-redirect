@@ -109,7 +109,7 @@ Clean Redirect exposes a single middleware function that accepts multiple option
 | `redirectCode`        | Integer  | No       | Sets the redirect code to be used by default. Valid values are `301` and `302`. Defaults to `302`.                                                                                                                |
 | `callNextOnRedirect`  | Boolean  | No       | When set to `true`, the `next()` function will be called in the middleware after the redirect has taken place. Defaults to `false`.                                                                               |
 | `deferRedirectToNext` | Boolean  | No       | When set to `true`, `res.redirect()` is not called in the middleware. Instead, an instance of CleanRedirect is saved to `res.locals` and available for further governance in the middleware that follows.         |
-| `customRedirects`     | Function | No       | This is a function that accepts three arguments (`req`, `res`, `redirector`) and is called before calling `res.redirect()`. Pass this in to include custom redirect logic using conditions, getters, and setters. |
+| `customRedirects`     | Function | No       | This is a function that accepts three arguments (`req`, `res`, `redirector`) and is called before calling `res.redirect()`. Pass this in to include custom redirect logic using conditions and setters and getters for the `CleanRedirect` object (see below). |
 
 Ideally, this middleware should come before any other redirect-related logic, globally, using the `app.use()` method. However, you can also pass different configurations into different areas of your application.
 
